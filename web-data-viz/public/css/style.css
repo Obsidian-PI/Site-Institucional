@@ -1,0 +1,432 @@
+@font-face {
+    font-family: 'helvetica';
+    src: url(../assets/fonts/HelveticaNeueMedium.otf);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'helvetica';
+    background-color: #151515;
+}
+
+a {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+p {
+    color: #fff
+}
+
+header {
+    position: fixed;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #151515;
+    z-index: 2;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+}
+
+.logo p {
+    margin-left: 5px;
+    font-size: 18px;
+}
+
+.navbar {
+    width: 600px;
+    color: black;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+
+}
+
+.sobre a:hover {
+    color: #525252;
+}
+
+.criarConta button {
+    width: 130px;
+    height: 35px;
+    background-color: #8060D3;
+    border-color: #8060D3;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.navbar .sobre {
+    display: flex;
+    margin-right: 25px;
+    justify-content: space-around;
+    width: 505px;
+    align-items: center;
+    font-size: 1rem;
+    transition: 500ms;
+}
+
+.inicio {
+    height: 49rem;
+}
+
+.video {
+    /* margin-top: 0%; */
+    height: 710px;
+    display: flex;
+    justify-content: center;
+}
+
+.video video {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    object-fit: cover;
+    filter: grayscale(0.2);
+}
+
+.logoInicio {
+    opacity: 0.90;
+    top: 4rem;
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    /* margin-left: 30rem; */
+    /* margin-top: 13rem; */
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.logoInicio p {
+    font-size: 115px;
+    margin: 0;
+    color: #fff;
+    margin-right: 50px;
+}
+
+.sobreNos {
+    height: 100vh;
+    background-color: #151515;
+    background-image: url(../assets/imgs/fundoSobre.png);
+    background-repeat: no-repeat;
+    background-size: 95rem 49rem;
+}
+
+.boxSobre {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-direction: column;
+}
+
+.boxSobre .tituloSobre {
+    color: #fff;
+    width: 82%;
+}
+
+.boxSobre .textoSobre {
+    width: 75rem;
+    height: fit-content;
+}
+
+.equipe {
+    height: 100vh;
+    background-color: #151515;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.equipe .tituloEquipe {
+    color: #fff;
+}
+
+.equipe .boxEquipe {
+    display: flex;
+    width: 93%;
+    height: 75%;
+    background-color: #D9D9D9;
+    border-radius: 15px;
+    padding: 10px;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.integrantes {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+}
+
+.integrantesMobile {
+    display: none;
+}
+
+.integrante {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+}
+
+.boxIntegrante {
+    height: 13rem;
+    width: 23rem;
+    background-color: #151515;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    margin-left: 4rem;
+    justify-content: center;
+}
+
+.fotoIntegrante {
+    height: 10rem;
+    width: 10rem;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    border: 3px solid #D9D9D9;
+}
+
+.fotoIntegrante img {
+    height: 10rem;
+    width: 10rem;
+    background-color: red;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+h2 {
+    color: #fff;
+}
+
+.textoIntegrante {
+    height: 100%;
+}
+
+.projeto {
+    height: 100vh;
+    display: flex;
+}
+
+.projeto .containerProjeto .tituloProjeto h1 {
+    color: #fff;
+    font-size: 50px;
+}
+
+.projeto .containerProjeto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+}
+
+.containerBoxProjeto {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.containerBoxProjeto .boxProjeto {
+    width: 620px;
+    height: 505px;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+}
+
+.containerBoxProjeto .boxProjeto .imgBoxProjeto {
+    width: 100%;
+    height: 50%;
+    border-radius: 15px 15px 0px 0px;
+    background-color: brown;
+}
+
+.containerBoxProjeto .boxProjeto .textosProjeto {
+    height: 50%;
+}
+
+.containerBoxProjeto .boxProjeto .textosProjeto h2 {
+    color: #151515;
+    font-size: 24px;
+    margin: 11px;
+}
+
+.containerBoxProjeto .boxProjeto .textosProjeto p {
+    color: #151515;
+    font-size: 20px;
+    margin: 6px;
+}
+
+/* Responsividade */
+
+@media (max-width: 431px) {
+    body {
+        max-width: 431px;
+        overflow-x: hidden;
+    }
+
+    header {
+        position: fixed;
+        display: flex;
+        width: 431px;
+        height: 80px;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #151515;
+        z-index: 2;
+    }
+
+    .logoInicio p {
+        display: none;
+    }
+
+    .nav {
+        display: none;
+    }
+
+    .integrante {
+        display: flex;
+        width: fit-content;
+        align-items: center;
+    }
+
+    .boxIntegrante {
+        height: 13rem;
+        width: 23rem;
+        background-color: #151515;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        margin-left: 4rem;
+        justify-content: center;
+    }
+
+    .fotoIntegrante {
+        height: 10rem;
+        width: 10rem;
+        background-color: red;
+        border-radius: 50%;
+        position: absolute;
+        border: 3px solid #D9D9D9;
+    }
+
+    .fotoIntegrante img {
+        height: 10rem;
+        width: 10rem;
+        background-color: red;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    h2 {
+        color: #fff;
+    }
+
+    .textoIntegrante {
+        height: 100%;
+    }
+
+    .boxIntegrante {
+        height: 13rem;
+        width: 20rem;
+        background-color: #151515;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        margin-left: 4rem;
+        justify-content: center;
+    }
+
+    .fotoIntegrante {
+        height: 9rem;
+        width: 9rem;
+        background-color: red;
+        border-radius: 10% 50% 50% 10%;
+        position: absolute;
+        border: 3px solid #D9D9D9;
+    }
+
+    .fotoIntegrante img {
+        height: 9rem;
+        width: 9rem;
+        background-color: none;
+        border-radius: 10% 50% 50% 10%;
+        object-fit: cover;
+    }
+
+    .equipe .boxEquipe .integrantes {
+        display: none;
+    }
+
+    .boxSobre .textoSobre {
+        width: 21rem;
+        height: fit-content;
+    }
+
+    .navbar .sobre {
+        display: flex;
+        margin-left: -7rem;
+        /* justify-content: space-around; */
+        /* width: 505px; */
+        align-items: center;
+        font-size: 1rem;
+        transition: 500ms;
+    }
+
+    .equipe .boxEquipe {
+        width: 100%;
+        height: 75%;
+        border-radius: 0px;
+    }
+
+    .integrantesMobile {
+        display: block;
+    }
+
+    .carousel {
+        width: 26rem;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .carousel-inner {
+        display: flex;
+        transition: transform 0.5s ease;
+        /* Define o tamanho do container dos items */
+    }
+
+    .carousel-item {
+        min-width: 300px;
+        box-sizing: border-box;
+        padding: 10px;
+        margin-right: 10rem;
+        text-align: center;
+    }
+}
