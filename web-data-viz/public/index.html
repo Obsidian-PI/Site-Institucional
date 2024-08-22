@@ -280,6 +280,55 @@
             <div class="tituloProjeto">
                 <h1>Projeto</h1>
             </div>
+
+            <div class="containerBoxProjetoMobile">
+                <div id="boxOQue" ontouchstart="abrirOQue()">
+                    <h2>O que é?</h2>
+                </div>
+
+                <div class="boxProjeto" id="oQue">
+                    <div class="imgBoxProjeto">
+                        <img src="" alt="">
+                    </div>
+                    <div class="textosProjeto">
+                        <div class="temaProjeto">
+                            <h2>O que é?</h2>
+                        </div>
+                        <div class="texto">
+                            <p>orem ipsum dolor sit amet, consectetur adipiscing elit. In lectus tellus, pretium in
+                                condimentum eget, fermentum eu urna. Nullam pellentesque, augue eget pellentesque
+                                volutpat, risus erat aliquam nibh, quis facilisis elit mi sollicitudin lorem. </p>
+                        </div>
+                        <div id="fechar" ontouchstart="fecharOQue()">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="boxFazemos" ontouchstart="abrirFazemos()">
+                    <h2>O que fazemos?</h2>
+                </div>
+
+                <div class="boxProjeto" id="fazemos">
+                    <div class="imgBoxProjeto">
+                        <img src="" alt="">
+                    </div>
+                    <div class="textosProjeto">
+                        <div class="temaProjeto">
+                            <h2>O que é?</h2>
+                        </div>
+                        <div class="texto">
+                            <p>orem ipsum dolor sit amet, consectetur adipiscing elit. In lectus tellus, pretium in
+                                condimentum eget, fermentum eu urna. Nullam pellentesque, augue eget pellentesque
+                                volutpat, risus erat aliquam nibh, quis facilisis elit mi sollicitudin lorem. </p>
+                        </div>
+                        <div id="fechar" ontouchstart="fecharFazemos()">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="containerBoxProjeto">
                 <div class="boxProjeto">
                     <div class="imgBoxProjeto">
@@ -314,8 +363,64 @@
             </div>
         </div>
     </div>
+
+    <div class="contato">
+        <div class="containerContato">
+            <div class="navBottom">
+                <a href="#home"> Home </a> <br>
+                <a href="#sobre"> Sobre nós </a> <br>
+                <a href="#equipe"> Equipe </a> <br>
+                <a href="#projeto"> Projeto </a> <br>
+                <a href="#contato"> Contato </a> <br>
+            </div>
+            <div class="localEmpresa">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d914.3216907717901!2d-46.66185808101886!3d-23.55814219857898!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59d2b063f663%3A0xc567c0d16d0bc582!2sS%C3%A3o%20Paulo%20Tech%20School!5e0!3m2!1spt-BR!2sbr!4v1724335536770!5m2!1spt-BR!2sbr"
+                    width="600" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="formsContato">
+                <div class="tituloContato">
+                    <h2>Entre em contato</h2>
+                </div>
+                <div class="infoPessoal">
+                    <input type="email" placeholder="Email@example.com" id="inputEmailContato">
+                    <input type="text" placeholder="Assunto" id="inputAssuntoContato">
+                </div>
+                <div class="textoContato">
+                    <textarea name="" id="textAreaContato" cols="72" rows="6"></textarea>
+                </div>
+                <div class="botaoContato">
+                    <button>Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script>
+    function abrirOQue() {
+        boxOQue.style.display = 'none'
+        oQue.style.display = 'block'
+    }
+    function fecharOQue() {
+        boxOQue.style.display = 'block'
+        oQue.style.display = 'none'
+    }
+    function abrirFazemos() {
+        boxFazemos.style.display = 'none'
+        fazemos.style.display = 'block'
+    }
+    function fecharFazemos() {
+        boxFazemos.style.display = 'block'
+        fazemos.style.display = 'none'
+    }
+
+
+
+
+
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
