@@ -464,6 +464,13 @@ textarea {
         object-fit: cover;
     }
 
+    .projeto {
+        height: 125vh;
+        display: flex;
+    }
+    
+    
+
     .equipe .boxEquipe .integrantes {
         display: none;
     }
