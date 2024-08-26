@@ -1,0 +1,119 @@
+@font-face {
+    font-family: 'helvetica';
+    src: url(../../assets/fonts/HelveticaNeueMedium.otf);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'helvetica';
+    background-color: #D9D9D9;
+    background-image: url(../assets/fundo.png);
+    height: 100vh;
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-size: 96rem 46rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    width: 34vw;
+    height: 73vh;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.box .up {
+    display: flex;
+    width: 100%;
+    height: 8vh;
+    align-items: center;
+}
+
+.box .up img{
+    width: 40px;
+}
+
+.box .login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80%;
+    justify-content: center;
+}
+
+.box .login .tituloLogin {
+    display: flex;
+    flex-direction: column;
+    width: 62%;
+}
+
+.box .login .tituloLogin p{
+    font-size: 35px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.box .login .tituloLogin .logoLogin p{
+    color: #8060D3;
+}
+
+.box .login .tituloLogin .logoLogin{
+    display: flex;
+    align-items: center;
+}
+
+.box .login .formsLogin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.box .login .formsLogin input {
+    font-family: 'helvetica';
+    margin-top: 1vh;
+    width: 20vw;
+    height: 6vh;
+    border: 1.5px solid #151515;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+.box .login .botoesLogin {
+    display: flex;
+    flex-direction: column;
+}
+
+.box .login .botoesLogin button{
+    font-family: 'helvetica';
+    width: 20vw;
+    height: 5vh;
+    border-radius: 25px;
+    margin-top: 1vh;
+    border: 2px solid #151515;
+    font-weight: 600;
+}
+
+.entrar{
+    background-color: #151515;
+    color: #FFF;
+}
+
+.esqSenha{
+    background-color: #FFF;
+    color: #151515;
+}
+
+.box .login .crieConta{
+display: flex;
+align-items: center;
+
+}
+
+.box .login .crieConta a {
+    color: #8060D3;
+    margin-left: 0.3vw;
+}
