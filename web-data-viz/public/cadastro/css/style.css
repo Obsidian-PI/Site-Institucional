@@ -9,7 +9,7 @@ body {
     overflow-x: hidden;
     font-family: 'helvetica';
     background-color: #D9D9D9;
-    background-image: url(../assets/fundo.png);
+    background-image: url(../assets/imgs/fundo.png);
     height: 100vh;
     width: 100vw;
     background-repeat: no-repeat;
@@ -21,7 +21,7 @@ body {
 
 .box {
     width: 34vw;
-    height: 73vh;
+    height: 69vh;
     background-color: white;
     border-radius: 20px;
 }
@@ -33,11 +33,11 @@ body {
     align-items: center;
 }
 
-.box .up img{
+.box .up img {
     width: 40px;
 }
 
-.box .login {
+.box .Cadastro {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,49 +45,47 @@ body {
     justify-content: center;
 }
 
-.box .login .tituloLogin {
+.box .Cadastro .tituloCadastro {
     display: flex;
     flex-direction: column;
     width: 62%;
 }
 
-.box .login .tituloLogin p{
+.box .Cadastro .tituloCadastro p {
     font-size: 35px;
     margin: 0;
     font-weight: 600;
 }
 
-.box .login .tituloLogin .logoLogin p{
-    color: #8060D3;
-}
 
-.box .login .tituloLogin .logoLogin{
+.box .Cadastro .tituloCadastro .logoCadastro {
     display: flex;
     align-items: center;
 }
 
-.box .login .formsLogin {
+.box .Cadastro .formsCadastro {
+    width: 92%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.box .login .formsLogin input {
+.box .Cadastro .formsCadastro input {
     font-family: 'helvetica';
     margin-top: 1vh;
-    width: 20vw;
+    width: 14vw;
     height: 6vh;
     border: 1.5px solid #151515;
     border-radius: 10px;
     padding: 7px;
 }
 
-.box .login .botoesLogin {
+.box .Cadastro .botoesCadastro {
     display: flex;
     flex-direction: column;
 }
 
-.box .login .botoesLogin button{
+.box .Cadastro .botoesCadastro button {
     font-family: 'helvetica';
     width: 20vw;
     height: 5vh;
@@ -97,23 +95,35 @@ body {
     font-weight: 600;
 }
 
-.entrar{
+.senhas {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.entrar {
     background-color: #151515;
     color: #FFF;
 }
 
-.esqSenha{
+.esqSenha {
     background-color: #FFF;
     color: #151515;
 }
 
-.box .login .crieConta{
-display: flex;
-align-items: center;
+.box .Cadastro .crieConta {
+    display: flex;
+    align-items: center;
 
 }
 
-.box .login .crieConta a {
+.box .Cadastro .crieConta a {
     color: #8060D3;
     margin-left: 0.3vw;
 }
@@ -121,21 +131,21 @@ align-items: center;
 @media(max-width: 600px) {
     .box {
         width: 100vw;
-        height: 100vh;
         border-radius: 0px;
+        height: 100vh;
     }
 
-    .box .login .tituloLogin img {
+    .box .Cadastro .tituloCadastro img {
         width: 41px;
     }
 
-    .box .login .tituloLogin p {
+    .box .Cadastro .tituloCadastro p {
         font-size: 50px;
         margin: 0;
         font-weight: 600;
     }
 
-    .box .login .tituloLogin {
+    .box .Cadastro .tituloCadastro {
         display: flex;
         flex-direction: column;
         width: 62%;
@@ -143,17 +153,31 @@ align-items: center;
         margin-top: 3rem;
     }
 
-    .box .login .formsLogin input {
+    .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .senhas {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .box .Cadastro .formsCadastro input {
         width: 80vw;
     }
 
-    .box .login .botoesLogin button {
+    .box .Cadastro .botoesCadastro button {
         width: 70vw;
         height: 6vh;
         font-size: 20px;
     }
 
-    .box .login .botoesLogin {
+    .box .Cadastro .botoesCadastro {
         margin-top: 3rem;
         display: flex;
         flex-direction: column;
