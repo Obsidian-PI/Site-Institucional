@@ -9,7 +9,7 @@ body {
     overflow-x: hidden;
     font-family: 'helvetica';
     background-color: #D9D9D9;
-    background-image: url(../assets/imgs/fundo.png);
+    background-image: url(../assets/imgs/fundo1.png);
     height: 100vh;
     width: 100vw;
     background-repeat: no-repeat;
@@ -68,12 +68,13 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .box .Cadastro .formsCadastro input {
     font-family: 'helvetica';
     margin-top: 1vh;
-    width: 14vw;
+    width: 12vw;
     height: 6vh;
     border: 1.5px solid #151515;
     border-radius: 10px;
@@ -96,18 +97,25 @@ body {
 }
 
 .senhas {
+    width: 86%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
 
 .info {
+    width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
+    align-items: center;
 }
 
-.entrar {
+.info input {
+    width: 80% !important;
+}
+
+.cadastrar {
     background-color: #151515;
     color: #FFF;
 }
@@ -168,7 +176,7 @@ body {
     }
 
     .box .Cadastro .formsCadastro input {
-        width: 80vw;
+        width: 83vw;
     }
 
     .box .Cadastro .botoesCadastro button {
@@ -181,5 +189,9 @@ body {
         margin-top: 3rem;
         display: flex;
         flex-direction: column;
+    }
+
+    .info input {
+        width: 89% !important;
     }
 }

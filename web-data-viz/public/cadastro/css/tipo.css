@@ -1,0 +1,145 @@
+@font-face {
+    font-family: 'helvetica';
+    src: url(../../assets/fonts/HelveticaNeueMedium.otf);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'helvetica';
+    background-color: #151515;
+    background-image: url(../assets/imgs/fundo.png);
+    height: 100vh;
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    width: 34vw;
+    height: 69vh;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.box .up {
+    display: flex;
+    width: 100%;
+    height: 8vh;
+    align-items: center;
+}
+
+.box .up img {
+    width: 40px;
+}
+
+.box .escolha {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80%;
+    justify-content: space-evenly;
+}
+
+.box .escolha .tituloescolha {
+    display: flex;
+    flex-direction: column;
+    width: 62%;
+}
+
+.box .escolha .tituloescolha p {
+    font-size: 35px;
+    margin: 0;
+    font-weight: 600;
+}
+
+
+.box .escolha .tituloescolha .logoescolha {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.box .escolha .crieConta {
+    display: flex;
+    align-items: center;
+
+}
+
+.box .escolha .crieConta a {
+    color: #8060D3;
+    margin-left: 0.3vw;
+}
+
+.escolhas{
+    height: 34%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.escolhas .escolhaEmpresa {
+    width: 25vw;
+    height: 8vh;
+    background-color: #FFF;
+    border: 2px #8060D3 solid;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    background-image: url(../assets/imgs/iconRight.png);
+    background-repeat: no-repeat;
+    background-size: 2rem;
+    background-position: 21vw;
+}
+
+.escolhas .escolhaEmpresa p{
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.escolhas a{
+    text-decoration: none;
+    color: #151515;
+}
+
+@media(max-width:600px){
+    .box{
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0 !important;
+
+    }
+    .escolhas .escolhaEmpresa {
+        width: 70vw;
+        height: 8vh;
+        background-color: #FFF;
+        border: 2px #8060D3 solid;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        background-image: url(../assets/imgs/iconRight.png);
+        background-repeat: no-repeat;
+        background-size: 2rem;
+        background-position: 60vw;
+    }
+
+    .box .escolha .tituloescolha {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
+}
