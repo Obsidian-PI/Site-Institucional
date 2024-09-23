@@ -7,7 +7,7 @@
     <title>Login Obsidian</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="shortcut icon" href="../assets/ico.png" type="image/x-icon">
-    
+
 </head>
 
 <body>
@@ -26,12 +26,13 @@
                 </div>
             </div>
             <div class="formsLogin">
-                <input type="text" placeholder="cnpj">
-                <input type="password" placeholder="senha">
+                <input type="text" placeholder="cnpj" id="cnpjEmpresa">
+                <input type="password" placeholder="senha" id="senhaEmpresa">
             </div>
             <div class="botoesLogin">
-                <button class="entrar">Entrar</button>
+                <button class="entrar" onclick="entrar()">Entrar</button>
                 <button class="esqSenha">Esqueceu a senha?</button>
+                <p id="erros" style="color: red; font-size: 13px;"></p>
             </div>
             <div class="crieConta">
                 <p>crie uma conta na </p> <a href="../cadastro/tipoEmpresa.html">Obsidian</a>
@@ -39,5 +40,80 @@
         </div>
     </div>
 </body>
+
+
+<script>
+    function entrar() {
+
+        var cnpjVar = cnpjEmpresa.value;
+        var senhaVar = senhaEmpresa.value;
+        if (cnpjVar == "" || senhaVar == "") {
+            erros.innerHTML = "Campos invalidos"
+            return false;
+        }
+        else if (cnpjVar == "") {
+            erros.innerHTML = "CNPJ invalido!"
+            return false;
+        }
+        else if (senhaVar == "") {
+            erros.innerHTML = "Senha invalida!"
+            return false;
+        }
+
+        console.log("FORM LOGIN: ", cnpjVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                cnpjServer: cnpjVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_EMPRESA = json.email;
+                    sessionStorage.NOME_EMPRESA = json.nome;
+                    sessionStorage.ID_EMPRESA = json.id;
+                    sessionStorage.TIPO_EMPRESA = json.tipoEmpresa
+
+
+                    if (json.tipoEmpresa == 1) {
+                        setTimeout(function () {
+                            window.location = "../dashboard/dashboard.html";
+                        }, 1000);
+                    } else if (json.tipoEmpresa == 2) {
+                        window.location = "../dashboard/dashboard2.html";
+                            
+                    }
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+</script>
 
 </html>

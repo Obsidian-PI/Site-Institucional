@@ -1,17 +1,16 @@
 var usuarioModel = require("../models/usuarioModel");
-var aquarioModel = require("../models/aquarioModel");
 
 function autenticar(req, res) {
-    var email = req.body.emailServer;
+    var cnpj = req.body.cnpjServer;
     var senha = req.body.senhaServer;
 
-    if (email == undefined) {
+    if (cnpj == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
 
-        usuarioModel.autenticar(email, senha)
+        usuarioModel.autenticar(cnpj, senha)
             .then(
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
@@ -19,21 +18,14 @@ function autenticar(req, res) {
 
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
-
-                        aquarioModel.buscarAquariosPorEmpresa(resultadoAutenticar[0].empresaId)
-                            .then((resultadoAquarios) => {
-                                if (resultadoAquarios.length > 0) {
                                     res.json({
-                                        id: resultadoAutenticar[0].id,
-                                        email: resultadoAutenticar[0].email,
-                                        nome: resultadoAutenticar[0].nome,
-                                        senha: resultadoAutenticar[0].senha,
-                                        aquarios: resultadoAquarios
+                                        id: resultadoAutenticar[0].idEmpresa,
+                                        cnpj: resultadoAutenticar[0].cnpjEmpresa,
+                                        email: resultadoAutenticar[0].emailEmpresa,
+                                        nome: resultadoAutenticar[0].nomeEmpresa,
+                                        senha: resultadoAutenticar[0].senhaEmpresa,
+                                        tipoEmpresa: resultadoAutenticar[0].fkTipoEmpresa
                                     });
-                                } else {
-                                    res.status(204).json({ aquarios: [] });
-                                }
-                            })
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
@@ -52,14 +44,13 @@ function autenticar(req, res) {
 }
 
 function cadastrar(req, res) {
-    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+
     var nome = req.body.nomeServer;
     var cnpj = req.body.cnpjServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
     var fkTipoEmpresa = req.body.tipoEmpresaServer;
 
-        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrar(nome, cnpj, email, senha, fkTipoEmpresa)
             .then(
                 function (resultado) {

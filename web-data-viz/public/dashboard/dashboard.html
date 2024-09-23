@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Obsidian</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="../assets/ico.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <div class="navLateral">
+            <div class="titulo">
+                <div class="logo">
+                    <a href="../index.html"><img src="./assets/imgs/logo.svg" alt=""></a>
+                </div>
+                <div class="tituloText">
+                    <h1>Obsidian-Dash</h1>
+                </div>
+            </div>
+            <div class="opcoes">
+                <div class="sectionUp">
+                    <div class="btnNav">
+                        <div class="fundoBtn press">
+                            <p>Dashboard</p>
+                        </div>
+                    </div>
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <p>Cadastro</p>
+                        </div>
+                    </div>
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <p>Notificações</p>
+                        </div>
+                    </div>
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <p>Chat</p>
+                        </div>
+                    </div>
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <p>Contato</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="sectionDown">
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <p>Configurações</p>
+                        </div>
+                    </div>
+                    <div class="btnNav" onclick="sair()">
+                        <div class="fundoBtn">
+                            <p>Sair</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="containerGraph">
+            <div class="graphPrincipal">
+                <div class="tituloGraph">
+                    <p>Grafico XPTO</p>
+                </div>
+                <div class="boxGraphPrincipal">
+
+                </div>
+            </div>
+            <div class="boxGraphs">
+                <div class="graphSecond">
+                    <div class="tituloGraph">
+                        <p>Grafico XPTO</p>
+                    </div>
+                    <div class="boxGraphSecond">
+
+                    </div>
+                </div>
+                <div class="kpi">
+                    <div class="tituloGraph">
+                        <p>KPI XPTO</p>
+                    </div>
+                    <div class="boxKpi">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+  function verificar() {
+    var idEmpresa = sessionStorage.ID_EMPRESA;
+    var nomeEmpresa = sessionStorage.NOME_EMPRESA;
+
+    if (idEmpresa >= 0) {
+    } else {
+      window.location = "../index.html";
+    }
+  }
+  verificar();
+
+    function sair() {
+        sessionStorage.clear();
+        window.location = "../index.html";
+    }
+</script>
+
+</html>
