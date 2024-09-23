@@ -422,14 +422,12 @@
         var tipoEmpresa = sessionStorage.TIPO_EMPRESA;
 
         if (idEmpresa >= 0) {
-            
-            if (tipoEmpresa = 2) {
+            if (tipoEmpresa = 1) {
+                criarConta.innerHTML = `<a href="./dashboard/dashboard.html"><button class="btnCRUD" id="btnCRUD">${nomeEmpresa}</button></a>`
+            }else if(tipoEmpresa = 2){
                 criarConta.innerHTML = `<a href="./dashboard/dashboard2.html"><button class="btnCRUD" id="btnCRUD">${nomeEmpresa}</button></a>`
                 btnCRUD.style.backgroundColor = "#6A9C89";
                 btnCRUD.style.borderColor = "#6A9C89";
-            }else if(tipoEmpresa = 1){
-                criarConta.innerHTML = `<a href="./dashboard/dashboard.html"><button class="btnCRUD" id="btnCRUD">${nomeEmpresa}</button></a>`
-
             }
         } else {
             criarConta.innerHTML = '<a href="./login/login.html"><button class="btnCRUD" id="btnCRUD">Entrar</button></a> <a href="./cadastro/tipoEmpresa.html"><button class="btnCRUD" id="btnCRUD">Criar Conta</button></a>';
