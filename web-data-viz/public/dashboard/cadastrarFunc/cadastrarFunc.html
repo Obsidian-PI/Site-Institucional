@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Obsidian</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="../assets/ico.png" type="image/x-icon">
+</head>
+
+<body onload="listar()">
+    <div class="container">
+        <div class="navLateral">
+            <div class="titulo">
+                <div class="logo">
+                    <a href="../index.html"><img src="../assets/imgs/logo.svg" alt=""></a>
+                </div>
+                <div class="tituloText">
+                    <h1>Obsidian-Dash</h1>
+                </div>
+            </div>
+            <div class="opcoes">
+                <div class="sectionUp">
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <a href="../dashboard.html"><p>Dashboard</p></a>
+                        </div>
+                    </div>
+                    <div class="btnNav">
+                        <div class="fundoBtn press">
+                            <p>Cadastro</p>
+                        </div>
+                    </div>
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <a href=""><p>Notificações</p></a>
+                        </div>
+                    </div>
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <a href=""><p>Chat</p></a>
+                        </div>
+                    </div>
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <a href=""><p>Contato</p></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sectionDown">
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <a href=""><p>Configurações</p></a>
+                        </div>
+                    </div>
+                    <div class="btnNav" onclick="sair()">
+                        <div class="fundoBtn">
+                            <a href=""><p>Sair</p></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="containerCadastro">
+            <div class="boxCadastro">
+                <div class="cadastrarFunc">
+                    <div class="tituloCadastro">
+                        <h1>Cadastrar seu funcionario</h1>
+                    </div>
+                    <div class="formsCadastro">
+                        <div class="nome">
+                            <p>Nome</p>
+                            <input type="text" id="inputNome" placeholder="example example">
+                        </div>
+                        <div class="doisForms">
+                            <div class="cpf">
+                                <p>CPF</p>
+                                <input type="text" name="" id="inputCpf" placeholder="xxx.xxx.xxx-xx">
+                            </div>
+                            <div class="telefone">
+                                <p>Telefone</p>
+                                <input type="text" name="" id="inputTelefone" placeholder="(xx) xxxxx-xxxx">
+                            </div>
+                        </div>
+                        <div class="email">
+                            <p>Email</p>
+                            <input type="email" name="" id="inputEmail" placeholder="example@example.com">
+                        </div>
+                        <div class="doisForms">
+                            <div class="senha">
+                                <p>Senha</p>
+                                <input type="password" name="" id="inputSenha" placeholder="********">
+                            </div>
+                            <div class="confSenha">
+                                <p>Confirmar Senha</p>
+                                <input type="password" name="" id="inputConfSenha" placeholder="********">
+                            </div>
+                        </div>
+                        <div class="btnCadastrar">
+                            <button onclick="cadastrar()">Cadastrar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="listaFunc">
+                    <div class="tituloLista">
+                        <h1>Seus funcionarios</h1>
+                    </div>
+                    <div class="boxFuncionarios" id="boxFunc">
+                       <!-- <div class="cardFuncionario"><div class="collection"><div class="icon"></div><div class="nomeF">Rodolfo Ikeda</div></div><div class="btnInfo"><button>Editar</button></div></div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script>
+    function verificar() {
+        var idEmpresa = sessionStorage.ID_EMPRESA;
+        var nomeEmpresa = sessionStorage.NOME_EMPRESA;
+
+        //     if (idEmpresa >= 0) {
+        //     } else {
+        //       window.location = "../index.html";
+        //     }
+    }
+    verificar();
+
+    function sair() {
+        sessionStorage.clear();
+        window.location = "../../index.html";
+    }
+
+    function cadastrar() {
+        var nomeVar = inputNome.value;
+        var emailVar = inputEmail.value;
+        var cpfVar = inputCpf.value;
+        var telefoneVar = inputTelefone.value;
+        var senhaVar = inputSenha.value;
+        var confirmacaoSenhaVar = inputConfSenha.value;
+        var idEmpresa = sessionStorage.ID_EMPRESA;
+
+
+        fetch("/funcionarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                cpfServer: cpfVar,
+                emailServer: emailVar,
+                telefoneServer: telefoneVar,
+                senhaServer: senhaVar,
+                fkEmpresaServer: idEmpresa,
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                finalizarAguardar();
+            });
+
+        return false;
+    }
+
+    function listar() {
+        var fkEmpresaServer = sessionStorage.ID_EMPRESA;
+        fetch(`/funcionarios/listar?fkEmpresaServer=${fkEmpresaServer}`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((resposta) => {
+                    resposta.forEach((funcionario) => {
+                        boxFunc.innerHTML += `<div class="cardFuncionario"><div class="collection"><div class="icon"></div><div class="nomeF">${funcionario.nomeFuncionario}</div></div><div class="btnInfo"><button>Editar</button></div></div>`;
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+</script>
+
+</html>

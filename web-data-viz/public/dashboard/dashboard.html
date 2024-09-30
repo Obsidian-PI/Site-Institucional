@@ -7,6 +7,7 @@
     <title>Dashboard Obsidian</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="shortcut icon" href="../assets/ico.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -29,34 +30,46 @@
                     </div>
                     <div class="btnNav">
                         <div class="fundoBtn">
-                            <p>Cadastro</p>
+                            <a href="./cadastrarFunc/cadastrarFunc.html">
+                                <p>Cadastro</p>
+                            </a>
                         </div>
                     </div>
                     <div class="btnNav">
                         <div class="fundoBtn">
-                            <p>Notificações</p>
+                            <a href="">
+                                <p>Notificações</p>
+                            </a>
                         </div>
                     </div>
                     <div class="btnNav">
                         <div class="fundoBtn">
-                            <p>Chat</p>
+                            <a href="">
+                                <p>Chat</p>
+                            </a>
                         </div>
                     </div>
                     <div class="btnNav">
                         <div class="fundoBtn">
-                            <p>Contato</p>
+                            <a href="">
+                                <p>Contato</p>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="sectionDown">
                     <div class="btnNav">
                         <div class="fundoBtn">
-                            <p>Configurações</p>
+                            <a href="">
+                                <p>Configurações</p>
+                            </a>
                         </div>
                     </div>
                     <div class="btnNav" onclick="sair()">
                         <div class="fundoBtn">
-                            <p>Sair</p>
+                            <a href="">
+                                <p>Sair</p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -85,7 +98,9 @@
                     <p>Grafico XPTO</p>
                 </div>
                 <div class="boxGraphPrincipal">
-
+                    <div class="grafico">
+                        <canvas id="myChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,21 +108,44 @@
 </body>
 
 <script>
-  function verificar() {
-    var idEmpresa = sessionStorage.ID_EMPRESA;
-    var nomeEmpresa = sessionStorage.NOME_EMPRESA;
+    function verificar() {
+        var idEmpresa = sessionStorage.ID_EMPRESA;
+        var nomeEmpresa = sessionStorage.NOME_EMPRESA;
 
-    if (idEmpresa >= 0) {
-    } else {
-      window.location = "../index.html";
+        if (idEmpresa >= 0) {
+        } else {
+            window.location = "../index.html";
+        }
     }
-  }
-  verificar();
+    verificar();
 
     function sair() {
         sessionStorage.clear();
         window.location = "../index.html";
     }
+</script>
+
+<script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 </script>
 
 </html>

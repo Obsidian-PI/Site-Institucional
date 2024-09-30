@@ -22,6 +22,8 @@ function autenticar(req, res) {
                                         id: resultadoAutenticar[0].idEmpresa,
                                         cnpj: resultadoAutenticar[0].cnpjEmpresa,
                                         email: resultadoAutenticar[0].emailEmpresa,
+                                        uf: resultadoAutenticar[0].ufEmpresa,
+                                        atuacaoEmpresa: resultadoAutenticar[0].atuacaoEmpresa,
                                         nome: resultadoAutenticar[0].nomeEmpresa,
                                         senha: resultadoAutenticar[0].senhaEmpresa,
                                         tipoEmpresa: resultadoAutenticar[0].fkTipoEmpresa
@@ -48,10 +50,12 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var cnpj = req.body.cnpjServer;
     var email = req.body.emailServer;
+    var uf = req.body.ufServer;
+    var atuacao = req.body.areaAtuacaoServer;
     var senha = req.body.senhaServer;
     var fkTipoEmpresa = req.body.tipoEmpresaServer;
 
-        usuarioModel.cadastrar(nome, cnpj, email, senha, fkTipoEmpresa)
+        usuarioModel.cadastrar(nome, cnpj, email, uf, atuacao, senha, fkTipoEmpresa)
             .then(
                 function (resultado) {
                     res.json(resultado);

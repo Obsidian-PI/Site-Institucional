@@ -79,6 +79,32 @@ body {
     padding: 7px;
 }
 
+.infoAtuacao {
+    margin-top: 5px;
+    width: 84%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.selectAreaAtuacao {
+    width: 18vw;
+    height: 6vh;
+    font-size: 16px;
+    padding-left: 16px;
+    border-radius: 10px;
+    font-family: "Poppins", sans-serif;
+}
+
+.selectUF {
+    width: 5vw;
+    height: 6vh;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 10px;
+    font-family: "Poppins", sans-serif;
+}
+
 .box .Cadastro .botoesCadastro {
     display: flex;
     flex-direction: column;

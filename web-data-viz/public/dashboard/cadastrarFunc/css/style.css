@@ -111,6 +111,9 @@ a:hover{
     .fundoBtn p{
         margin: 0;
     }
+    a{
+        color: #CD5C08;
+    }
 }
 
 .sectionDown{
@@ -121,52 +124,145 @@ a:hover{
     justify-content: space-around;
 }
 
-.containerGraph {
+.containerCadastro {
     height: 100vh;
     width: 79vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.graphPrincipal{
+h1{
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.containerCadastro .boxCadastro {
+    background-color: #FFF;
+    width: 75vw;
+    height: 95vh;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 8px;
+}
+
+.containerCadastro .boxCadastro .cadastrarFunc .formsCadastro{
+    margin-left: 10px;
+    height: 82%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+}
+
+.nome input{
+    border-radius: 15px;
+    width: 414px;
+    height: 6vh;
+    padding-left: 20px;
+}
+.email input{
+    border-radius: 15px;
+    width: 414px;
+    height: 6vh;
+    padding-left: 20px;
+}
+
+.doisForms input {
+    width: 188px;
+    height: 6vh;
+    border-radius: 15px;
+    padding-left: 20px;
+}
+
+.doisForms{
+    display: flex;
+    justify-content: space-evenly;
+}
+.btnCadastrar{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
 }
 
-.graphPrincipal .tituloGraph{
-    width: 94%;
-}
-.tituloGraph p{
-    margin-bottom: 0;
+.btnCadastrar button {
+    font-size: 18px;
     font-weight: 600;
+    background-color: #fcfcfb;
+    height: 5vh;
+    width: 10vw;
+    border-radius: 25px;
+    transition: 900ms;
+    cursor: pointer;
+}
+.btnCadastrar button:hover {
+    background-color: #FFF5E4;
+
 }
 
-.graphPrincipal .boxGraphPrincipal {
-    width: 75vw;
-    height: 50vh;
-    background-color: white;
-    border-radius: 15px;
+
+
+.listaFunc{
+    margin-bottom: 15px;
+    width: 33vw;
+    background-color: #FFF5E4;
+    border-radius: 8px;
 }
 
-.boxGraphs {
+.tituloLista{
+    margin-left: 2vw;
+}
+.boxFuncionarios{
+    width: 100%;
+    margin-top: 25px;
+    height: 87%;
+}
+.cardFuncionario {
+    width: 100%;
+    height: 10vh;
     display: flex;
-    justify-content: space-evenly;
-    flex-direction: row-reverse;
+    justify-content: space-between;
+    background-color: #FFF;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.graphSecond .boxGraphSecond {
-    width: 47vw;
-    height: 37vh;
-    background-color: white;
-    border-radius: 15px;
+.collection{
+    margin-left: 10px;
+    display: flex;
+    width: 11vw;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.grafico{
-    
+.icon{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: black;
+}
+.nomeF{
+    font-size: 18px;
 }
 
-.boxKpi{
-    width: 26vw;
-    height: 37vh;
-    background-color: white;
-    border-radius: 15px;
+.btnInfo{
+    height: 100%;
+    width: 6vw;
+}
+
+.btnInfo button{
+    border: none;
+    height: 100%;
+    width: 100%;
+    background-color: #db803b;
+    color: #FFF5E4;
+    font-weight: 600;
+    transition: 900ms;
+}
+
+.btnInfo button:hover{
+    background-color: #CD5C08;
 }
