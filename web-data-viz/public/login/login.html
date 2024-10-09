@@ -35,7 +35,7 @@
                 <p id="erros" style="color: red; font-size: 13px;"></p>
             </div>
             <div class="crieConta">
-                <p>crie uma conta na </p> <a href="../cadastro/tipoEmpresa.html">Obsidian</a>
+                <p>crie uma conta na </p> <a href="../cadastro/cadastro1.html">Obsidian</a>
             </div>
         </div>
     </div>
@@ -86,16 +86,9 @@
                     sessionStorage.ID_EMPRESA = json.id;
                     sessionStorage.TIPO_EMPRESA = json.tipoEmpresa
 
-
-                    if (json.tipoEmpresa == 1) {
                         setTimeout(function () {
                             window.location = "../dashboard/dashboard.html";
                         }, 1000);
-                    } else if (json.tipoEmpresa == 2) {
-                        window.location = "../dashboard/dashboard2.html";
-                            
-                    }
-
                 });
 
             } else {

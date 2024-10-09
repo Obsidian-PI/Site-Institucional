@@ -26,7 +26,6 @@ function autenticar(req, res) {
                                         atuacaoEmpresa: resultadoAutenticar[0].atuacaoEmpresa,
                                         nome: resultadoAutenticar[0].nomeEmpresa,
                                         senha: resultadoAutenticar[0].senhaEmpresa,
-                                        tipoEmpresa: resultadoAutenticar[0].fkTipoEmpresa
                                     });
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
@@ -53,7 +52,6 @@ function cadastrar(req, res) {
     var uf = req.body.ufServer;
     var atuacao = req.body.areaAtuacaoServer;
     var senha = req.body.senhaServer;
-    var fkTipoEmpresa = req.body.tipoEmpresaServer;
 
         usuarioModel.cadastrar(nome, cnpj, email, uf, atuacao, senha, fkTipoEmpresa)
             .then(

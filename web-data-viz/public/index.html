@@ -26,7 +26,7 @@
                 </div>
                 <div class="criarConta" id="criarConta">
                     <a href="./login/login.html"><button class="btnCRUD" id="btnCRUD">Entrar</button></a>
-                    <a href="./cadastro/tipoEmpresa.html"><button class="btnCRUD" id="btnCRUD">Criar Conta</button></a>
+                    <a href="./cadastro/cadastro1.html"><button class="btnCRUD" id="btnCRUD">Criar Conta</button></a>
                 </div>
             </div>
     </header>
@@ -404,7 +404,7 @@
                     <input type="text" placeholder="Assunto" id="inputAssuntoContato">
                 </div>
                 <div class="textoContato">
-                    <textarea name="" id="textAreaContato" cols="72" rows="6"></textarea>
+                    <textarea name="" id="textAreaContato" cols="81" rows="6"></textarea>
                 </div>
                 <div class="botaoContato">
                     <button>Enviar</button>
@@ -422,15 +422,9 @@
         var tipoEmpresa = sessionStorage.TIPO_EMPRESA;
 
         if (idEmpresa >= 0) {
-            if (tipoEmpresa = 1) {
-                criarConta.innerHTML = `<a href="./dashboard/dashboard.html"><button class="btnCRUD" id="btnCRUD">${nomeEmpresa}</button></a>`
-            }else if(tipoEmpresa = 2){
-                criarConta.innerHTML = `<a href="./dashboard/dashboard2.html"><button class="btnCRUD" id="btnCRUD">${nomeEmpresa}</button></a>`
-                btnCRUD.style.backgroundColor = "#6A9C89";
-                btnCRUD.style.borderColor = "#6A9C89";
-            }
+            criarConta.innerHTML = `<a href="./dashboard/dashboard.html"><button class="btnCRUD" id="btnCRUD">${nomeEmpresa}</button></a>`
         } else {
-            criarConta.innerHTML = '<a href="./login/login.html"><button class="btnCRUD" id="btnCRUD">Entrar</button></a> <a href="./cadastro/tipoEmpresa.html"><button class="btnCRUD" id="btnCRUD">Criar Conta</button></a>';
+            criarConta.innerHTML = '<a href="./login/login.html"><button class="btnCRUD" id="btnCRUD">Entrar</button></a> <a href="./cadastro/cadastro1.html"><button class="btnCRUD" id="btnCRUD">Criar Conta</button></a>';
         }
     }
 

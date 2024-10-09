@@ -13,7 +13,7 @@
 <body>
     <div class="box">
         <div class="up">
-            <a href="./tipoEmpresa.html">
+            <a href="../index.html">
                 <img src="./assets/imgs/iconLeft.png" alt="">
             </a>
         </div>
@@ -97,7 +97,6 @@
         var atuacaoVar = selectAreaAtuacao.value;
         var senhaVar = senhaEmpresa.value;
         var confirmacaoSenhaVar = confSenhaEmpresa.value;
-        var tipoEmpresaVar = 1;
 
 
         fetch("/usuarios/cadastrar", {
@@ -114,7 +113,6 @@
                 ufServer: ufVar,
                 areaAtuacaoServer: atuacaoVar,
                 senhaServer: senhaVar,
-                tipoEmpresaServer: tipoEmpresaVar
             }),
         })
             .then(function (resposta) {

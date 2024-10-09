@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Obsidian</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="../assets/ico.png" type="image/x-icon">
+</head>
+
+<body onload="listar()">
+    <div class="container">
+        <div class="navLateral">
+            <div class="titulo">
+                <div class="logo">
+                    <a href="../index.html"><img src="../assets/imgs/logo.svg" alt=""></a>
+                </div>
+                <div class="tituloText">
+                    <h1>Obsidian-Dash</h1>
+                </div>
+            </div>
+            <div class="opcoes">
+                <div class="sectionUp">
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <a href="../dashboard.html"><p>Dashboard</p></a>
+                        </div>
+                    </div>
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <a href="../cadastrarFunc/cadastrarFunc.html"><p>Cadastro</p></a>
+                        </div>
+                    </div>
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <a href=""><p>Notificações</p></a>
+                        </div>
+                    </div>
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <a href=""><p>Chat</p></a>
+                        </div>
+                    </div>
+                    <div class="btnNav">
+                        <div class="fundoBtn">
+                            <a href=""><p>Contato</p></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sectionDown">
+                    <div class="btnNav">
+                        <div class="fundoBtn press">
+                           <p>Configurações</p>
+                        </div>
+                    </div>
+                    <div class="btnNav" onclick="sair()">
+                        <div class="fundoBtn">
+                            <a href=""><p>Sair</p></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="containerConfig">
+            <div class="boxEscolhasConfig">
+                <div class="tituloBox">
+                    <h1>Configurações</h1>
+                </div>
+                <div class="optionsConfig">
+                    <div class="option select">
+                        <p>Informações da conta</p>
+                        <div class="selecionada"></div>
+                    </div>
+                    <div class="option">
+                        <p>Segurança</p>
+                        <div class="selecionada"></div>
+                    </div>
+                    <div class="option">
+                        <p>Acessibilidade</p>
+                        <div class="selecionada"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="boxConfig">
+                <div class="configConta">
+                    <div class="tituloBox">
+                        <h1>Editar Informações da conta</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script>
+    function verificar() {
+        var idEmpresa = sessionStorage.ID_EMPRESA;
+        var nomeEmpresa = sessionStorage.NOME_EMPRESA;
+
+            // if (idEmpresa >= 0) {
+            // } else {
+            //   window.location = "../index.html";
+            // }
+    }
+    verificar();
+
+    function sair() {
+        sessionStorage.clear();
+        window.location = "../../index.html";
+    }
+
+    
+</script>
+
+</html>
