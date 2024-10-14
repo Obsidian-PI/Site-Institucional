@@ -7,7 +7,7 @@
     <title>Cadastro Obsidian</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="shortcut icon" href="../assets/ico.png" type="image/x-icon">
-    
+
 </head>
 
 <body>
@@ -98,6 +98,29 @@
         var senhaVar = senhaEmpresa.value;
         var confirmacaoSenhaVar = confSenhaEmpresa.value;
 
+        // validação feita pelo Rodolfo, pendente de teste
+        if (!nomeVar || !emailVar || !cnpjVar || ufVar == "UF" || atuacaoVar == "Área de atuação" || !senhaVar || !confirmacaoSenhaVar) {
+            alert("Por favor, preencha todos os campos.");
+            return false;
+        }
+
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        /* 
+        /^ indica o inicio, [^\s@] onde vamos receber o email garantindo que não haverá espaço ou caractere especial
+           +@ indica o arroba após a primeira parte do texto, temos o recebimento do dominio, a obrigatoriedade do ponto e $ para 
+           apontar o final
+        */
+        if (!emailRegex.test(emailVar)) {
+            alert("Por favor, insira um email válido.");
+            return false;
+        }
+
+        if (senhaVar != confirmacaoSenhaVar) {
+            alert("As senhas não coincidem.");
+            return false;
+        }
+
+        // inicio dos métodos de adição no banco de dados, caso os dados inseridos estejam válidos
 
         fetch("/usuarios/cadastrar", {
             method: "POST",
@@ -119,7 +142,7 @@
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    
+
                     setTimeout(() => {
                         window.location = "../login/login.html";
                     }, "2000");
