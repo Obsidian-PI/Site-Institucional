@@ -7,7 +7,7 @@
     <title>Dashboard Obsidian</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="shortcut icon" href="../assets/ico.png" type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
@@ -79,27 +79,48 @@
             <div class="boxGraphs">
                 <div class="graphSecond">
                     <div class="tituloGraph">
-                        <p>Grafico XPTO</p>
+                        <p>Emisões mensais do estado </p>
+                        <select id="selectUF" class="selectUF">
+                            <option disabled selected>UF</option>
+                            <option value="AC">AC</option>
+                            <option value="AL">AL</option>
+                            <option value="AP">AP</option>
+                            <option value="AM">AM</option>
+                            <option value="BA">BA</option>
+                            <option value="CE">CE</option>
+                            <option value="DF">DF</option>
+                            <option value="ES">ES</option>
+                            <option value="GO">GO</option>
+                            <option value="MA">MA</option>
+                            <option value="MS">MS</option>
+                            <option value="MT">MT</option>
+                            <option value="MG">MG</option>
+                            <option value="PA">PA</option>
+                            <option value="PB">PB</option>
+                            <option value="PR">PR</option>
+                            <option value="PE">PE</option>
+                            <option value="PI">PI</option>
+                            <option value="RJ">RJ</option>
+                            <option value="RN">RN</option>
+                            <option value="RS">RS</option>
+                            <option value="RO">RO</option>
+                            <option value="RR">RR</option>
+                            <option value="SC">SC</option>
+                            <option value="SP">SP</option>
+                            <option value="SE">SE</option>
+                            <option value="TO">TO</option>
+                        </select>
                     </div>
                     <div class="boxGraphSecond">
-
+                        <div id="barchart_div"></div>
                     </div>
                 </div>
                 <div class="kpi">
                     <div class="tituloGraph">
-                        <p>KPI XPTO</p>
+                        <p>Estados que mais emitem CO²</p>
                     </div>
                     <div class="boxKpi">
-                    </div>
-                </div>
-            </div>
-            <div class="graphPrincipal">
-                <div class="tituloGraph">
-                    <p>Grafico XPTO</p>
-                </div>
-                <div class="boxGraphPrincipal">
-                    <div class="grafico">
-                        <canvas id="myChart"></canvas>
+                        <div id="geochart-colors"></div>
                     </div>
                 </div>
             </div>
@@ -111,11 +132,6 @@
     function verificar() {
         var idEmpresa = sessionStorage.ID_EMPRESA;
         var nomeEmpresa = sessionStorage.NOME_EMPRESA;
-
-        if (idEmpresa >= 0) {
-        } else {
-            window.location = "../index.html";
-        }
     }
     verificar();
 
@@ -125,27 +141,143 @@
     }
 </script>
 
-<script>
-    const ctx = document.getElementById('myChart');
-
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
+<script type="text/javascript">
+    google.charts.load('current', {
+        'packages': ['geochart'],
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
     });
+    google.charts.setOnLoadCallback(drawRegionsMap);
+
+    function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable([
+            ['State', 'Population'],
+            ['BR-AC', 894470],
+            ['BR-AL', 3351543],
+            ['BR-AM', 4207714],
+            ['BR-AP', 861773],
+            ['BR-BA', 14812617],
+            ['BR-CE', 9187103],
+            ['BR-DF', 3094325],
+            ['BR-ES', 4064052],
+            ['BR-GO', 7113540],
+            ['BR-MA', 7153262],
+            ['BR-MG', 21168791],
+            ['BR-MS', 2778986],
+            ['BR-MT', 3484466],
+            ['BR-PA', 8602865],
+            ['BR-PB', 4018127],
+            ['BR-PE', 9616621],
+            ['BR-PI', 3273227],
+            ['BR-PR', 11433957],
+            ['BR-RJ', 17264943],
+            ['BR-RN', 3506853],
+            ['BR-RS', 11377239],
+            ['BR-RO', 1796460],
+            ['BR-RR', 631181],
+            ['BR-SC', 7252502],
+            ['BR-SE', 2298696],
+            ['BR-SP', 45919049],
+            ['BR-TO', 1572866]
+        ]);
+
+        var options = {
+            region: 'BR',
+            resolution: 'provinces',
+            displayMode: 'regions',
+            sizeAxis: { minValue: 3, maxValue: 3 },
+            colorAxis: { colors: ['#00853f', '#e31b23'] },
+            backgroundColor: 'transparent',
+            datalessRegionColor: 'transparent',
+            defaultColor: '#FFF',
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
+
+        google.visualization.events.addListener(chart, 'select', function () {
+            var selectedItem = chart.getSelection()[0];
+            if (selectedItem) {
+                var state = data.getValue(selectedItem.row, 0);
+                var uf = state.substring(3);
+                document.getElementById('selectUF').value = uf;
+                drawBarChart(uf);
+            }
+        });
+
+        chart.draw(data, options);
+    };
+</script>
+
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawInitialChart);
+
+    function drawInitialChart() {
+        drawBarChart('AC');
+    }
+
+    document.getElementById("selectUF").addEventListener("change", function () {
+        var selectedUF = this.value;
+        drawBarChart(selectedUF);
+    });
+
+    function drawBarChart(uf) {
+        var emissionsData = {
+            'AC': [100, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220],
+            'AL': [90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200],
+            'AP': [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160],
+            'AM': [120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230],
+            'BA': [300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410],
+            'CE': [250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360],
+            'DF': [200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310],
+            'ES': [180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290],
+            'GO': [210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320],
+            'MA': [170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280],
+            'MG': [400, 410, 420, 430, 440, 450, 460, 470, 480, 490, 500, 510],
+            'MS': [130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240],
+            'MT': [110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220],
+            'PA': [350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460],
+            'PB': [130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240],
+            'PE': [220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330],
+            'PI': [60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170],
+            'PR': [380, 390, 400, 410, 420, 430, 440, 450, 460, 470, 480, 490],
+            'RJ': [500, 510, 520, 530, 540, 550, 560, 570, 580, 590, 600, 610],
+            'RN': [140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250],
+            'RS': [300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410],
+            'RO': [80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190],
+            'RR': [30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140],
+            'SC': [250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360],
+            'SE': [120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230],
+            'SP': [800, 810, 820, 830, 840, 850, 860, 870, 880, 890, 900, 910],
+            'TO': [90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200]
+        };
+
+        var data = google.visualization.arrayToDataTable([
+            ['Month', 'Emissions'],
+            ['Jan', emissionsData[uf][0]],
+            ['Feb', emissionsData[uf][1]],
+            ['Mar', emissionsData[uf][2]],
+            ['Apr', emissionsData[uf][3]],
+            ['May', emissionsData[uf][4]],
+            ['Jun', emissionsData[uf][5]],
+            ['Jul', emissionsData[uf][6]],
+            ['Aug', emissionsData[uf][7]],
+            ['Sep', emissionsData[uf][8]],
+            ['Oct', emissionsData[uf][9]],
+            ['Nov', emissionsData[uf][10]],
+            ['Dec', emissionsData[uf][11]]
+        ]);
+
+        var options = {
+            title: 'Emissões de CO² de ' + uf,
+            hAxis: { title: 'Mês' },
+            vAxis: { title: 'Emissões' },
+            chartArea: { width: '70%' },
+            legend: { position: 'none' }
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('barchart_div'));
+        chart.draw(data, options);
+    }
 </script>
 
 </html>
