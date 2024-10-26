@@ -27,7 +27,8 @@
             </div>
             <div class="formsCadastro">
                 <div class="info">
-                    <input id="nomeEmpresa" type="text" placeholder="nome da empresa">
+                    <input id="razaoSocial" type="text" placeholder="razao social">
+                    <input id="nomeFEmpresa" type="text" placeholder="nome fantasia">
                     <input id="cnpjEmpresa" type="text" placeholder="cnpj">
                     <input id="emailEmpresa" type="email" placeholder="email contato">
                 </div>
@@ -90,7 +91,8 @@
 
 <script>
     function cadastrar() {
-        var nomeVar = nomeEmpresa.value;
+        var razaoVar = razaoSocial.value;
+        var nomeVar = nomeFEmpresa.value;
         var emailVar = emailEmpresa.value;
         var cnpjVar = cnpjEmpresa.value;
         var ufVar = selectUF.value;
@@ -130,6 +132,7 @@
             body: JSON.stringify({
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
+                razarServer: razaoVar,
                 nomeServer: nomeVar,
                 cnpjServer: cnpjVar,
                 emailServer: emailVar,

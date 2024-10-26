@@ -45,7 +45,7 @@ function autenticar(req, res) {
 }
 
 function cadastrar(req, res) {
-
+    var razao = req.body.razaoServer;
     var nome = req.body.nomeServer;
     var cnpj = req.body.cnpjServer;
     var email = req.body.emailServer;
@@ -53,7 +53,7 @@ function cadastrar(req, res) {
     var atuacao = req.body.areaAtuacaoServer;
     var senha = req.body.senhaServer;
 
-        usuarioModel.cadastrar(nome, cnpj, email, uf, atuacao, senha, fkTipoEmpresa)
+        usuarioModel.cadastrar(razao, nome, cnpj, email, uf, atuacao, senha, fkTipoEmpresa)
             .then(
                 function (resultado) {
                     res.json(resultado);
