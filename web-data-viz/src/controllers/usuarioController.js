@@ -53,7 +53,7 @@ function cadastrar(req, res) {
     var atuacao = req.body.areaAtuacaoServer;
     var senha = req.body.senhaServer;
 
-        usuarioModel.cadastrar(razao, nome, cnpj, email, uf, atuacao, senha, fkTipoEmpresa)
+        usuarioModel.cadastrar(razao, nome, cnpj, email, uf, atuacao, senha)
             .then(
                 function (resultado) {
                     res.json(resultado);

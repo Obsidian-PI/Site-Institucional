@@ -24,7 +24,9 @@
                 <div class="sectionUp">
                     <div class="btnNav">
                         <div class="fundoBtn">
-                            <a href="../dashboard.html"><p>Dashboard</p></a>
+                            <a href="../dashboard.html">
+                                <p>Dashboard</p>
+                            </a>
                         </div>
                     </div>
                     <div class="btnNav">
@@ -34,29 +36,39 @@
                     </div>
                     <div class="btnNav">
                         <div class="fundoBtn">
-                            <a href=""><p>Notificações</p></a>
+                            <a href="">
+                                <p>Notificações</p>
+                            </a>
                         </div>
                     </div>
                     <div class="btnNav">
                         <div class="fundoBtn">
-                            <a href=""><p>Chat</p></a>
+                            <a href="">
+                                <p>Chat</p>
+                            </a>
                         </div>
                     </div>
                     <div class="btnNav">
                         <div class="fundoBtn">
-                            <a href=""><p>Contato</p></a>
+                            <a href="">
+                                <p>Contato</p>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="sectionDown">
                     <div class="btnNav">
                         <div class="fundoBtn">
-                            <a href="../configuracoes/config.html"><p>Configurações</p></a>
+                            <a href="../configuracoes/config.html">
+                                <p>Configurações</p>
+                            </a>
                         </div>
                     </div>
                     <div class="btnNav" onclick="sair()">
                         <div class="fundoBtn">
-                            <a href=""><p>Sair</p></a>
+                            <a href="">
+                                <p>Sair</p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -107,7 +119,7 @@
                         <h1>Seus funcionarios</h1>
                     </div>
                     <div class="boxFuncionarios" id="boxFunc">
-                       <!-- <div class="cardFuncionario"><div class="collection"><div class="icon"></div><div class="nomeF">Rodolfo Ikeda</div></div><div class="btnInfo"><button>Editar</button></div></div> -->
+                        <!-- <div class="cardFuncionario"><div class="collection"><div class="icon"></div><div class="nomeF">Rodolfo Ikeda</div></div><div class="btnInfo"><button>Editar</button></div></div> -->
                     </div>
                 </div>
             </div>
@@ -178,7 +190,11 @@
             .then(function (resposta) {
                 resposta.json().then((resposta) => {
                     resposta.forEach((funcionario) => {
-                        boxFunc.innerHTML += `<div class="cardFuncionario"><div class="collection"><div class="icon"></div><div class="nomeF">${funcionario.nomeFuncionario}</div></div><div class="btnInfo"><button>Editar</button></div></div>`;
+                        if (funcionario == null) {
+                            boxFunc.innerHTML += `<div class="cardFuncionario">OPS! Parece que você não tem funcionarios ainda</div>`;
+                        } else {
+                            boxFunc.innerHTML += `<div class="cardFuncionario"><div class="collection"><div class="icon"></div><div class="nomeF">${funcionario.nomeFuncionario}</div></div><div class="btnInfo"><button>Editar</button></div></div>`;
+                        }
                     });
                 });
             })
