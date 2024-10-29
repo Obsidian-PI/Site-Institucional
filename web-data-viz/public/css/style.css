@@ -493,6 +493,10 @@ textarea {
     .boxSobre .textoSobre {
         width: 21rem;
         height: fit-content;
+        font-size: 13px;
+        background-color: #151515;
+        padding: 10px;
+        border-radius: 15px;
     }
 
     .navbar .sobre {
@@ -610,7 +614,7 @@ textarea {
 
     .containerBoxProjetoMobile .boxProjeto .textosProjeto p {
         color: #151515;
-        font-size: 20px;
+        font-size: 13px;
         margin: 6px;
     }
 
@@ -655,5 +659,9 @@ textarea {
         margin-top: 1rem;
         border-radius: 10px;
         border: 2px solid #151515;
+    }
+
+    .criarConta .btnCRUD {
+        width: 110px;
     }
 }
