@@ -76,6 +76,17 @@ header {
     font-size: 16px;
     font-weight: 600;
 }
+.criarConta .btnCRUD:hover {
+    width: 130px;
+    height: 35px;
+    background-color: #573114;
+    border-color: #573114;
+    border-radius: 10px;
+    color: #FFF5E4;
+    font-size: 16px;
+    font-weight: 600;
+}
+
 
 .nav {
     display: flex;
@@ -334,7 +345,7 @@ h2 {
 textarea {
     margin-top: 1rem;
     border-radius: 10px;
-    border: 2px solid #151515;
+    border: none;
 }
 
 .contato .containerContato .formsContato .infoPessoal input {
@@ -342,7 +353,7 @@ textarea {
     height: 4vh;
     padding: 4px;
     border-radius: 15px;
-    border: 2px solid #151515;
+    border: none;
 }
 
 
@@ -650,7 +661,7 @@ textarea {
         height: 4vh;
         padding: 4px;
         border-radius: 15px;
-        border: 2px solid #151515;
+        border: none;
         font-size: 16px;
     }
 
@@ -658,7 +669,6 @@ textarea {
         width: 55vw;
         margin-top: 1rem;
         border-radius: 10px;
-        border: 2px solid #151515;
     }
 
     .criarConta .btnCRUD {
