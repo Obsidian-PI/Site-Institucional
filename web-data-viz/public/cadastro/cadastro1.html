@@ -7,11 +7,12 @@
     <title>Cadastro Obsidian</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="shortcut icon" href="../assets/ico.png" type="image/x-icon">
-
 </head>
 
 <body>
-    <div class="box">
+    <a class="ADM" href="../administrador/dash.html">
+    </a>
+    <div class="box" id="box1">
         <div class="up">
             <a href="../index.html">
                 <img src="./assets/imgs/iconLeft.png" alt="">
@@ -25,63 +26,62 @@
                     <p>Obsidian</p>
                 </div>
             </div>
+            <div class="headerText">
+                <p>Insira os dados da Empresa:</p>
+            </div>
             <div class="formsCadastro">
                 <div class="info">
                     <input id="razaoSocial" type="text" placeholder="razao social">
                     <input id="nomeFEmpresa" type="text" placeholder="nome fantasia">
                     <input id="cnpjEmpresa" type="text" placeholder="cnpj">
-                    <input id="emailEmpresa" type="email" placeholder="email contato">
-                </div>
-                <div class="infoAtuacao">
-                    <select name="" id="selectAreaAtuacao" class="selectAreaAtuacao">
-                        <option disabled selected>Área de atuação</option>
-                        <option value="Agropecuária">Agropecuária</option>
-                        <option value="Energia">Energia</option>
-                        <option value="Mudança de uso da terra">Mudança de uso da terra</option>
-                        <option value="Processos industriais">Processos industriais</option>
-                        <option value="Residuos">Residuos</option>
-                    </select>
-                    <select id="selectUF" class="selectUF">
-                        <option disabled selected>UF</option>
-                        <option value="AC">AC</option>
-                        <option value="AL">AL</option>
-                        <option value="AP">AP</option>
-                        <option value="AM">AM</option>
-                        <option value="BA">BA</option>
-                        <option value="CE">CE</option>
-                        <option value="DF">DF</option>
-                        <option value="ES">ES</option>
-                        <option value="GO">GO</option>
-                        <option value="MA">MA</option>
-                        <option value="MS">MS</option>
-                        <option value="MT">MT</option>
-                        <option value="MG">MG</option>
-                        <option value="PA">PA</option>
-                        <option value="PB">PB</option>
-                        <option value="PR">PR</option>
-                        <option value="PE">PE</option>
-                        <option value="PI">PI</option>
-                        <option value="RJ">RJ</option>
-                        <option value="RN">RN</option>
-                        <option value="RS">RS</option>
-                        <option value="RO">RO</option>
-                        <option value="RR">RR</option>
-                        <option value="SC">SC</option>
-                        <option value="SP">SP</option>
-                        <option value="SE">SE</option>
-                        <option value="TO">TO</option>
-                    </select>
-                </div>
-                <div class="senhas">
-                    <input id="senhaEmpresa" type="password" placeholder="senha">
-                    <input id="confSenhaEmpresa" type="password" placeholder="confirmar senha">
                 </div>
             </div>
             <div class="botoesCadastro">
-                <button class="cadastrar" onclick="cadastrar()">Criar Conta</button>
+                <button class="cadastrar" onclick="proximo()">Proximo</button>
             </div>
             <div class="crieConta">
                 <p>Ja possui uma conta na </p> <a href="../login/login.html">Obsidian?</a>
+            </div>
+            <div class="progress">
+                <div class="bola atual"></div>
+                <div class="bola"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box" id="box2">
+        <div class="up">
+            <a onclick="voltar()">
+                <img src="./assets/imgs/iconLeft.png" alt="">
+            </a>
+        </div>
+        <div class="Cadastro">
+            <div class="tituloCadastro">
+                <p>Criar conta na</p>
+                <div class="logoCadastro">
+                    <img src="./assets/imgs/logoLogin.png" alt="">
+                    <p>Obsidian</p>
+                </div>
+            </div>
+            <div class="headerText">
+                <p>Insira os seus dados:</p>
+            </div>
+            <div class="formsCadastro">
+                <div class="info">
+                    <input id="nomeFunc" type="text" placeholder="nome">
+                    <input id="emailFunc" type="text" placeholder="email Corporativo">
+                    <input id="cpf" type="text" placeholder="cpf">
+                </div>
+            </div>
+            <div class="botoesCadastro">
+                <button class="cadastrar" onclick="enviar()">Enviar requisição</button>
+            </div>
+            <div class="crieConta">
+                <p>Ja possui uma conta na </p> <a href="../login/login.html">Obsidian?</a>
+            </div>
+            <div class="progress">
+                <div class="bola"></div>
+                <div class="bola atual"></div>
             </div>
         </div>
     </div>
@@ -90,15 +90,34 @@
 </html>
 
 <script>
-    function cadastrar() {
+
+    box2.style.display = 'none';
+
+    function proximo() {
+        box1.style.display = 'none';
+        box2.style.display = 'block';
+    }
+
+    function voltar() {
+        box1.style.display = 'block';
+        box2.style.display = 'none';
+    }
+
+
+    function enviar() {
         var razaoVar = razaoSocial.value;
-        var nomeVar = nomeFEmpresa.value;
-        var emailVar = emailEmpresa.value;
+        var nomeFanVar = nomeFEmpresa.value;
         var cnpjVar = cnpjEmpresa.value;
-        var ufVar = selectUF.value;
-        var atuacaoVar = selectAreaAtuacao.value;
-        var senhaVar = senhaEmpresa.value;
-        var confirmacaoSenhaVar = confSenhaEmpresa.value;
+        var nomeFuncVar = nomeFunc.value;
+        var emailFuncVar = emailFunc.value;
+        var cpfVar = cpf.value;
+
+        console.log(`${razaoVar}\n
+                    ${nomeFanVar}\n
+                    ${cnpjVar}\n
+                    ${nomeFuncVar}\n
+                    ${emailFuncVar}\n
+                    ${cpfVar}`)
 
         // validação feita pelo Rodolfo, pendente de teste
         if (!nomeVar || !emailVar || !cnpjVar || ufVar == "UF" || atuacaoVar == "Área de atuação" || !senhaVar || !confirmacaoSenhaVar) {
@@ -132,13 +151,9 @@
             body: JSON.stringify({
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
-                razarServer: razaoVar,
-                nomeServer: nomeVar,
+                razaoServer: razaoVar,
+                nomeFanServer: nomeFanVar,
                 cnpjServer: cnpjVar,
-                emailServer: emailVar,
-                ufServer: ufVar,
-                areaAtuacaoServer: atuacaoVar,
-                senhaServer: senhaVar,
             }),
         })
             .then(function (resposta) {
