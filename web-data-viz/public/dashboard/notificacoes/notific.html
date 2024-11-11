@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Obsidian</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <title>Notificações Obsidian</title>
+    <link rel="stylesheet" href="../cadastrarFunc/css/style.css">
     <link rel="shortcut icon" href="../assets/ico.png" type="image/x-icon">
 </head>
 
@@ -30,24 +30,17 @@
                         </div>
                     </div>
                     <div class="btnNav">
-                        <div class="fundoBtn press">
-                            <p>Cadastro</p>
+                        <div class="fundoBtn">
+                            <a href="../cadastrarFunc/cadastrarFunc.html">
+                                <p>Cadastro</p>
+                            </a>
                         </div>
                     </div>
                     <div class="btnNav">
-                        <div class="fundoBtn">
-                            <a href="../notificacoes/notific.html">
+                        <div class="fundoBtn press">
                                 <p>Notificações</p>
-                            </a>
                         </div>
                     </div>
-                    <!-- <div class="btnNav">
-                        <div class="fundoBtn">
-                            <a href="">
-                                <p>Chat</p>
-                            </a>
-                        </div>
-                    </div> -->
                     <div class="btnNav">
                         <div class="fundoBtn">
                             <a href="">
@@ -78,50 +71,20 @@
             <div class="boxCadastro">
                 <div class="cadastrarFunc">
                     <div class="tituloCadastro">
-                        <h1>Cadastrar seu funcionario</h1>
+                        <h1>Notificações</h1>
                     </div>
                     <div class="formsCadastro">
                         <div class="nome">
                             <p>Nome</p>
-                            <input type="text" id="inputNome" placeholder="example example">
+                            <div class="notif">Descrição completa da Notificação</div>
                         </div>
-                        <div class="doisForms">
-                            <div class="cpf">
-                                <p>CPF</p>
-                                <input type="text" name="" id="inputCpf" placeholder="xxx.xxx.xxx-xx">
-                            </div>
-                            <div class="telefone">
-                                <p>Telefone</p>
-                                <input type="text" name="" id="inputTelefone" placeholder="(xx) xxxxx-xxxx">
-                            </div>
-                        </div>
-                        <div class="email">
-                            <p>Email</p>
-                            <input type="email" name="" id="inputEmail" placeholder="example@example.com">
-                        </div>
-                        <div class="doisForms">
-                            <div class="senha">
-                                <p>Senha</p>
-                                <input type="password" name="" id="inputSenha" placeholder="********">
-                            </div>
-                            <div class="confSenha">
-                                <p>Confirmar Senha</p>
-                                <input type="password" name="" id="inputConfSenha" placeholder="********">
-                            </div>
-                        </div>
+                        
                         <div class="btnCadastrar">
                             <button onclick="cadastrar()">Cadastrar</button>
                         </div>
                     </div>
                 </div>
-                <div class="listaFunc">
-                    <div class="tituloLista">
-                        <h1>Seus funcionarios</h1>
-                    </div>
-                    <div class="boxFuncionarios" id="boxFunc">
-                        <!-- <div class="cardFuncionario"><div class="collection"><div class="icon"></div><div class="nomeF">Rodolfo Ikeda</div></div><div class="btnInfo"><button>Editar</button></div></div> -->
-                    </div>
-                </div>
+                
             </div>
         </div>
 

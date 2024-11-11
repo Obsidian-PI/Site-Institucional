@@ -266,3 +266,12 @@ h1{
 .btnInfo button:hover{
     background-color: #CD5C08;
 }
+
+.notif {
+    background-color: rgb(225, 225, 225);
+    outline: 2px;
+    border-color: #CD5C08;
+    padding: 20px;
+    border-radius: 20px;
+    border-top: 5px solid #CD5C08;
+}

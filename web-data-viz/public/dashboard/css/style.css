@@ -139,7 +139,6 @@ a:hover{
 }
 
 
-
 .selectUF{
     width: 3vw;
     height: 4vh;
@@ -153,7 +152,11 @@ a:hover{
 }
 
 .graphSecond .tituloGraph p{
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+}
+
+.kpis-direita .tituloGraph p{
+    margin-bottom: 20px;
 }
 
 .graphPrincipal .boxGraphPrincipal {
@@ -173,7 +176,7 @@ a:hover{
 
 .graphSecond .boxGraphSecond {
     width: 49vw;
-    height: 80vh;
+    height: 40vh;
     background-color: white;
     border-radius: 15px;
 }
@@ -182,15 +185,24 @@ a:hover{
     
 }
 
+.kpi p{
+    margin-bottom: 20px;
+}
+
 .boxKpi {
     width: 25vw;
-    height: 80vh;
+    height: 40vh;
     background-color: white;
     border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
+.kpi-margin {
+    margin-left: 15px;
+}
+
 
 #geochart-colors{
     width: 100%;
@@ -200,4 +212,13 @@ a:hover{
 #barchart_div {
     width: 100%;
     height: 100%;
+}
+
+.kpis-direita {
+    display: flex;
+}
+
+.numero-kpi {
+    font-size: 80px;
+    color: #CD5C08;
 }
