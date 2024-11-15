@@ -20,12 +20,12 @@ function autenticar(req, res) {
                         console.log(resultadoAutenticar);
                         res.json({
                             id: resultadoAutenticar[0].idFuncionario,
-                            cpf: resultadoAutenticar[0].cpfFuncionario,
-                            telefone: resultadoAutenticar[0].telefoneFuncionario,
-                            email: resultadoAutenticar[0].emailFuncionario,
-                            nome: resultadoAutenticar[0].nomeFuncionario,
-                            senha: resultadoAutenticar[0].senhaFuncionario,
-                            idEmpresa: resultadoAutenticar[0].fkFuncionarioEmpresa
+                            nome: resultadoAutenticar[0].nome,
+                            cpf: resultadoAutenticar[0].cpf,
+                            email: resultadoAutenticar[0].email,
+                            senha: resultadoAutenticar[0].senha,
+                            idEmpresa: resultadoAutenticar[0].fkEmpresa,
+                            tipoCargo: resultadoAutenticar[0].tipo
                         });
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
@@ -48,12 +48,12 @@ function cadastrar(req, res) {
 
     var nome = req.body.nomeServer;
     var cpf = req.body.cpfServer;
-    var telefone = req.body.telefoneServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var fkFuncionarioEmpresa = req.body.fkEmpresaServer;
+    var fkEmpresa = req.body.fkEmpresaServer;
+    var fkCargo = req.body.fkCargoServer;
 
-    funcionarioModel.cadastrar(nome, cpf, telefone, email, senha, fkFuncionarioEmpresa)
+    funcionarioModel.cadastrar(nome, cpf, email, senha, fkEmpresa, fkCargo)
         .then(
             function (resultado) {
                 res.json(resultado);

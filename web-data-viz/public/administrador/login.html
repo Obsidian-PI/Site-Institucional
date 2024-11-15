@@ -4,46 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Obsidian</title>
+    <title>Login</title>
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="shortcut icon" href="../assets/ico.png" type="image/x-icon">
-
 </head>
 
 <body>
-    <div class="box">
-        <div class="up">
-            <a href="../index.html">
-                <img src="./assets/iconLeft.png" alt="">
-            </a>
+    <div class="boxLogin">
+        <div class="tituloLogin">
+            <p>Entrar</p>
+            <p>Obsidian ADM</p>
         </div>
-        <div class="login">
-            <div class="tituloLogin">
-                <p>Entrar na</p>
-                <div class="logoLogin">
-                    <img src="./assets/logoLogin.png" alt="">
-                    <p>Obsidian</p>
-                </div>
-            </div>
-            <div class="formsLogin">
-                <input type="text" placeholder="cpf" id="cpfFuncionario" oninput="aplicarMascaraCPF(this)">
-                <input type="password" placeholder="senha" id="senhaFuncionario">
-            </div>
-            <div class="botoesLogin">
-                <button class="entrar" onclick="entrar()">Entrar</button>
-                <button class="esqSenha">Esqueceu a senha?</button>
-                <p id="erros" style="color: red; font-size: 13px;"></p>
-            </div>
-            <div class="crieConta">
-                <p>crie uma conta na </p> <a href="../cadastro/cadastro1.html">Obsidian</a>
-            </div>
+        <div class="forms">
+            <p class="label">CPF:</p>
+            <input id="cpfAdm" oninput="aplicarMascaraCPF(this)" maxlength="14" placeholder="000.000.000-00" type="text">
+            <p class="label">Senha:</p>
+            <input id="senhaAdm" type="password">
+        </div>
+        <div class="button">
+            <button onclick="entrar()">Entrar</button>
+        </div>
+        <div class="imgLogin">
+            <img src="./assets/logo.png" alt="">
         </div>
     </div>
 </body>
-
-
 <script>
-
     function aplicarMascaraCPF(input) {
         let valor = input.value.replace(/\D/g, '');
         if (valor.length > 11) valor = valor.slice(0, 11);
@@ -55,10 +40,11 @@
         input.value = valor;
     }
 
+
     function entrar() {
 
-        var cpfVar = cpfFuncionario.value;
-        var senhaVar = senhaFuncionario.value;
+        var cpfVar = cpfAdm.value;
+        var senhaVar = senhaAdm.value;
         if (cpfVar == "" || senhaVar == "") {
             erros.innerHTML = "Campos invalidos"
             return false;
@@ -75,7 +61,7 @@
         console.log("FORM LOGIN: ", cpfVar);
         console.log("FORM SENHA: ", senhaVar);
 
-        fetch("/funcionarios/autenticar", {
+        fetch("/adms/autenticar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -94,12 +80,9 @@
                     console.log(json);
                     console.log(JSON.stringify(json));
                     sessionStorage.NOME_FUNCIONARIO = json.nome;
-                    sessionStorage.CPF_FUNCIONARIO = json.cpf;
-                    sessionStorage.ID_EMPRESA = json.fkEmpresa;
-                    sessionStorage.TIPO_CARGO = json.tipo;
 
                     setTimeout(function () {
-                        window.location = "../dashboard/dashboard.html";
+                        window.location = "./dashboard/dash.html";
                     }, 1000);
                 });
 

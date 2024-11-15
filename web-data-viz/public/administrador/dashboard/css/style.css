@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: "Poppins", sans-serif;
+    background-color: #FFF5E4;
+    height: 100vh;
+    width: 100vw;
+}
+
+.nav {
+    width: 100vw;
+    height: 4rem;
+    background-color: #151515;
+    display: flex;
+    align-items: center;
+}
+
+.nav .titulo{
+    color: #FFF5E4;
+    font-size: 24px;
+    font-weight: 600;
+    margin-left: 1rem;
+}
+
+.nav .navBtns {
+    margin-left: 1rem;
+    width: 27vw;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.nav .sair {
+    margin-left: 57rem;
+}
+
+.nav .sair a{
+    color: #FFF5E4;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.nav .navBtns a{
+    color: #FFF5E4;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.container {
+    height: 91%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.container p {
+    margin: 0;
+    font-weight: 600;
+}
+
+.boxGraph {
+    width: 59rem;
+    height: 33rem;
+    border: 2px #151515 solid;
+    border-radius: 15px;
+}
+
+.boxKpi {
+    width: 16rem;
+    border: 2px #151515 solid;
+    height: 16rem;
+    display: flex;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    font-size: 130px;
+}
+
+a {
+    color:#151515;
+    text-decoration: none;
+}
+
+.requisicoes:hover {
+    text-decoration: underline;
+}

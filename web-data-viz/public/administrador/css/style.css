@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: "Poppins", sans-serif;
+    background-color: #FFF5E4;
+    height: 100vh;
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../assets/fundo.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+p {
+    margin: 0;
+    font-size: 24px;
+}
+
+.boxLogin {
+    width: 40vw;
+    height: 45vh;
+    background-color: #FFF;
+    border-radius: 15px;
+    border: 2px solid black;
+    color: #151515;
+}
+
+.tituloLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.forms{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    width: 27vw;
+    height: 4vh;
+    border-radius: 5px;
+}
+
+.label {
+    font-size: 18px;
+    width: 27vw;
+}
+
+.button{
+    width: 34vw;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button button {
+    width: 7vw;
+    height: 4vh;
+    border-radius: 10px;
+    border: 1px solid black;
+    transition: 500ms;
+}
+
+.button button:hover{
+    background-color: white;
+}
+
+img{
+    width: 35px;
+}
+
+.imgLogin {
+    display: flex;
+    justify-content: center;
+}
