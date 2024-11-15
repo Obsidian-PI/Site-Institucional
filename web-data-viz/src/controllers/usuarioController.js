@@ -1,16 +1,16 @@
 var usuarioModel = require("../models/usuarioModel");
 
 function autenticar(req, res) {
-    var cnpj = req.body.cnpjServer;
+    var cpf = req.body.cpfServer;
     var senha = req.body.senhaServer;
 
     if (cnpj == undefined) {
-        res.status(400).send("Seu email está undefined!");
+        res.status(400).send("Seu CPF está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
 
-        usuarioModel.autenticar(cnpj, senha)
+        usuarioModel.autenticar(cpf, senha)
             .then(
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
@@ -18,15 +18,13 @@ function autenticar(req, res) {
 
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
-                                    res.json({
-                                        id: resultadoAutenticar[0].idEmpresa,
-                                        cnpj: resultadoAutenticar[0].cnpjEmpresa,
-                                        email: resultadoAutenticar[0].emailEmpresa,
-                                        uf: resultadoAutenticar[0].ufEmpresa,
-                                        atuacaoEmpresa: resultadoAutenticar[0].atuacaoEmpresa,
-                                        nome: resultadoAutenticar[0].nomeEmpresa,
-                                        senha: resultadoAutenticar[0].senhaEmpresa,
-                                    });
+                        res.json({
+                            id: resultadoAutenticar[0].idEmpresa,
+                            cnpj: resultadoAutenticar[0].cnpjEmpresa,
+                            email: resultadoAutenticar[0].emailEmpresa,
+                            nome: resultadoAutenticar[0].nomeEmpresa,
+                            senha: resultadoAutenticar[0].senhaEmpresa,
+                        });
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
@@ -41,34 +39,39 @@ function autenticar(req, res) {
                 }
             );
     }
-
 }
 
 function cadastrar(req, res) {
     var razao = req.body.razaoServer;
-    var nome = req.body.nomeServer;
+    var nomeFan = req.body.nomeFanServer;
     var cnpj = req.body.cnpjServer;
-    var email = req.body.emailServer;
-    var uf = req.body.ufServer;
-    var atuacao = req.body.areaAtuacaoServer;
-    var senha = req.body.senhaServer;
+    var nomeFunc = req.body.nomeFuncServer
+    var emailFunc = req.body.emailFuncServer;
+    var cpf = req.body.cpfServer;
 
-        usuarioModel.cadastrar(razao, nome, cnpj, email, uf, atuacao, senha)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
+    usuarioModel.cadastrar(razao, nomeFan, cnpj, nomeFunc, emailFunc, cpf)
+        .then(
+            function (resultadoAutenticar) {
+                console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
+                console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
+
+                if (resultadoAutenticar.length == 1) {
+                    console.log(resultadoAutenticar);
+                    res.json({
+                        id: resultadoAutenticar[0].idEmpresa,
+                    });
                 }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
 }
 
 module.exports = {

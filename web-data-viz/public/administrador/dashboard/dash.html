@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body onload="listarRequisicoes()">
+    <div class="nav">
+        <div class="titulo">Obsidian</div>
+        <div class="navBtns">
+            <a href="">DashBoard</a>
+            <a href="../requisicoes/req.html">Requisições</a>
+            <a href="">Incidentes</a>
+        </div>
+        <div class="sair">
+            <a href="">Sair</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="graph">
+            <div class="tituloGraph">
+                <p>Requisições abertas diariamente</p>
+            </div>
+            <div class="boxGraph">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+        <div class="kpi">
+            <div class="requisicoes">
+                <div class="tituloKpi">
+                    <p>Requisições abertas:</p>
+                </div>
+                <a href="../requisicoes/req.html">
+                    <div id="kpiReq" class="boxKpi">
+
+                    </div>
+                </a>
+            </div>
+            <div class="incidentes">
+                <div class="tituloKpi">
+                    <p>Incidentes abertos:</p>
+                </div>
+                <div class="boxKpi">
+                    <p>14</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+    function listarRequisicoes() {
+        fetch(`/adms/listarRequisicoes`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((resposta) => {
+                    resposta.forEach((requisicao) => {
+                        kpiReq.innerHTML = `<p>${requisicao.total_requisicoes}</p>`;
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+</html>

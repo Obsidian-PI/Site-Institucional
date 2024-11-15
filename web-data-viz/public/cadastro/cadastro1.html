@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <a class="ADM" href="../administrador/dash.html">
+    <a class="ADM" href="../administrador/login.html">
     </a>
     <div class="box" id="box1">
         <div class="up">
@@ -27,13 +27,13 @@
                 </div>
             </div>
             <div class="headerText">
-                <p>Insira os dados da Empresa:</p>
+                <p>Insira os dados da Empresa que você representa:</p>
             </div>
             <div class="formsCadastro">
                 <div class="info">
                     <input id="razaoSocial" type="text" placeholder="razao social">
                     <input id="nomeFEmpresa" type="text" placeholder="nome fantasia">
-                    <input id="cnpjEmpresa" type="text" placeholder="cnpj">
+                    <input id="cnpjEmpresa" type="text" placeholder="cnpj" oninput="aplicarMascaraCNPJ(this)" maxlength="18">
                 </div>
             </div>
             <div class="botoesCadastro">
@@ -44,7 +44,7 @@
             </div>
             <div class="progress">
                 <div class="bola atual"></div>
-                <div class="bola"></div>
+                <div class="bola" onclick="proximo()"></div>
             </div>
         </div>
     </div>
@@ -63,14 +63,15 @@
                     <p>Obsidian</p>
                 </div>
             </div>
-            <div class="headerText">
+            <div class="headerText" id="headerText">
                 <p>Insira os seus dados:</p>
             </div>
             <div class="formsCadastro">
                 <div class="info">
                     <input id="nomeFunc" type="text" placeholder="nome">
                     <input id="emailFunc" type="text" placeholder="email Corporativo">
-                    <input id="cpf" type="text" placeholder="cpf">
+                    <input id="cpf" type="text" placeholder="cpf" oninput="aplicarMascaraCPF(this)" maxlength="14"
+                        minlength="14">
                 </div>
             </div>
             <div class="botoesCadastro">
@@ -80,7 +81,7 @@
                 <p>Ja possui uma conta na </p> <a href="../login/login.html">Obsidian?</a>
             </div>
             <div class="progress">
-                <div class="bola"></div>
+                <div class="bola" onclick="voltar()"></div>
                 <div class="bola atual"></div>
             </div>
         </div>
@@ -91,9 +92,35 @@
 
 <script>
 
+    function aplicarMascaraCPF(input) {
+        let valor = input.value.replace(/\D/g, '');
+        if (valor.length > 11) valor = valor.slice(0, 11);
+
+        valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+        valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+        valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+        input.value = valor;
+    }
+
+    function aplicarMascaraCNPJ(input) {
+        let valor = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+        if (valor.length > 14) valor = valor.slice(0, 14); // Limita ao tamanho do CNPJ
+
+        // Aplica a máscara
+        valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
+        valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+        valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
+        valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
+
+        input.value = valor;
+    }
+
+
     box2.style.display = 'none';
 
     function proximo() {
+        headerText.innerHTML = `<p>Insira os dados do representante da ${nomeFEmpresa.value}:</p>`
         box1.style.display = 'none';
         box2.style.display = 'block';
     }
@@ -120,7 +147,7 @@
                     ${cpfVar}`)
 
         // validação feita pelo Rodolfo, pendente de teste
-        if (!nomeVar || !emailVar || !cnpjVar || ufVar == "UF" || atuacaoVar == "Área de atuação" || !senhaVar || !confirmacaoSenhaVar) {
+        if (!nomeFanVar || !emailFuncVar || !cnpjVar) {
             alert("Por favor, preencha todos os campos.");
             return false;
         }
@@ -131,17 +158,10 @@
            +@ indica o arroba após a primeira parte do texto, temos o recebimento do dominio, a obrigatoriedade do ponto e $ para 
            apontar o final
         */
-        if (!emailRegex.test(emailVar)) {
+        if (!emailRegex.test(emailFuncVar)) {
             alert("Por favor, insira um email válido.");
             return false;
         }
-
-        if (senhaVar != confirmacaoSenhaVar) {
-            alert("As senhas não coincidem.");
-            return false;
-        }
-
-        // inicio dos métodos de adição no banco de dados, caso os dados inseridos estejam válidos
 
         fetch("/usuarios/cadastrar", {
             method: "POST",
@@ -149,11 +169,12 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
                 razaoServer: razaoVar,
                 nomeFanServer: nomeFanVar,
                 cnpjServer: cnpjVar,
+                nomeFuncServer: nomeFuncVar,
+                emailFuncServer: emailFuncVar,
+                cpfServer: cpfVar
             }),
         })
             .then(function (resposta) {
@@ -161,9 +182,9 @@
 
                 if (resposta.ok) {
 
-                    setTimeout(() => {
-                        window.location = "../login/login.html";
-                    }, "2000");
+                    // setTimeout(() => {
+                    //     window.location = "../login/login.html";
+                    // }, "2000");
 
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
