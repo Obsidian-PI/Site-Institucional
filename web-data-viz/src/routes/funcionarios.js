@@ -16,4 +16,12 @@ router.get("/listar", function (req, res) {
     funcionarioController.listar(req, res);
 });
 
+router.put("/redefinirSenha", function (req, res) {
+    funcionarioController.redefinirSenha(req, res);
+});
+
+router.get("/validarReset", function (req, res) {
+    funcionarioController.validarReset(req, res);
+})
+
 module.exports = router;

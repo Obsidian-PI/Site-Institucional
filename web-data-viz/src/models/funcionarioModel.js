@@ -31,8 +31,27 @@ function listar(fkEmpresa) {
     return database.executar(instrucao);
 }
 
+function redefinirSenha(idFunc, novaSenha) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", idFunc, novaSenha);
+    var instrucaoSql = `
+        UPDATE funcionario SET senha = '${novaSenha}', resetSenha = false WHERE idFuncionario = ${idFunc};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function validarReset(idFuncVar) {
+    var instrucao = `
+        select resetSenha from funcionario where idFuncionario = ${idFuncVar};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     autenticar,
     listar,
-    cadastrar
+    cadastrar,
+    redefinirSenha,
+    validarReset
 };
