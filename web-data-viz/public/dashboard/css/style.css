@@ -143,7 +143,7 @@ a:hover {
 
 
 
-.selectUF {
+.selectUF{
     width: 3vw;
     height: 4vh;
     border-radius: 15px;
@@ -155,8 +155,12 @@ a:hover {
     font-weight: 600;
 }
 
-.graphSecond .tituloGraph p {
-    margin-bottom: 16px;
+.graphSecond .tituloGraph p{
+    margin-bottom: 20px;
+}
+
+.kpis-direita .tituloGraph p{
+    margin-bottom: 20px;
 }
 
 .graphPrincipal .boxGraphPrincipal {
@@ -193,7 +197,12 @@ a:hover {
     justify-content: center;
 }
 
-#geochart-colors {
+.kpi-margin {
+    margin-left: 15px;
+}
+
+
+#geochart-colors{
     width: 100%;
     height: 100%;
 }
@@ -201,6 +210,15 @@ a:hover {
 #barchart_div {
     width: 100%;
     height: 100%;
+}
+
+.kpis-direita {
+    display: flex;
+}
+
+.numero-kpi {
+    font-size: 80px;
+    color: #CD5C08;
 }
 
 .modal {
