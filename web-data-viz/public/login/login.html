@@ -93,10 +93,12 @@
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
+                    sessionStorage.ID_FUNCIONARIO = json.id,
                     sessionStorage.NOME_FUNCIONARIO = json.nome;
                     sessionStorage.CPF_FUNCIONARIO = json.cpf;
-                    sessionStorage.ID_EMPRESA = json.fkEmpresa;
-                    sessionStorage.TIPO_CARGO = json.tipo;
+                    sessionStorage.ID_EMPRESA = json.idEmpresa;
+                    sessionStorage.TIPO_CARGO = json.tipoCargo;
+                    sessionStorage.RESET_SENHA = json.resetBoll;
 
                     setTimeout(function () {
                         window.location = "../dashboard/dashboard.html";

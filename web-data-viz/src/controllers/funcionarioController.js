@@ -25,7 +25,8 @@ function autenticar(req, res) {
                             email: resultadoAutenticar[0].email,
                             senha: resultadoAutenticar[0].senha,
                             idEmpresa: resultadoAutenticar[0].fkEmpresa,
-                            tipoCargo: resultadoAutenticar[0].tipo
+                            tipoCargo: resultadoAutenticar[0].tipo,
+                            resetBoll: resultadoAutenticar[0].resetSenha,
                         });
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
@@ -84,8 +85,54 @@ function listar(req, res) {
 }
 
 
+function redefinirSenha(req, res) {
+    var idFunc = req.body.idFuncServer;
+    var novaSenha = req.body.novaSenhaServer;
+
+    funcionarioModel.redefinirSenha(idFunc, novaSenha)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
+function validarReset(req, res) {
+    var idFuncVar = req.query.idFuncVarServer;
+
+    if (idFuncVar == undefined) {
+        res.status(400).send("idFuncVar esta undefined")
+    } else {
+
+        funcionarioModel.validarReset(idFuncVar)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro)
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: erro.sqlMessage"
+                    );
+                    res.status(500).json(erro.sqlMessage)
+                }
+            )
+    }
+}
+
 module.exports = {
     autenticar,
     listar,
-    cadastrar
+    cadastrar,
+    redefinirSenha,
+    validarReset
 }

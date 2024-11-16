@@ -110,7 +110,7 @@
                             <option value="SE">SE</option>
                             <option value="TO">TO</option>
                         </select>
-                        <p>  em toneladas</p>
+                        <p> em toneladas</p>
                     </div>
                     <div class="boxGraphSecond">
                         <div id="barchart_div"></div>
@@ -127,6 +127,20 @@
             </div>
         </div>
     </div>
+
+    <div id="modal-reset" class="modal">
+        <div class="modal-content">
+            <h2>Redefinição de Senha</h2>
+            <p>Sua senha precisa ser redefinida. Por favor, siga as instruções enviadas para seu email.</p>
+            <div class="divFormSenha">
+                <p>Insira a nova senha:</p>
+                <input type="password" maxlength="30" id="novaSenha">
+            </div>
+            <div class="btnAlterar">
+                <button id="close-modal" onclick="redefinirSenha() ,validarReset()">Redefinir Senha</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 <script>
@@ -140,6 +154,65 @@
         sessionStorage.clear();
         window.location = "../index.html";
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        if (sessionStorage.RESET_SENHA == "1") {
+            const modal = document.getElementById("modal-reset");
+            modal.style.display = "flex";
+        }
+    });
+
+    var idFuncVar = sessionStorage.ID_FUNCIONARIO;
+
+    function validarReset() {
+        var idFuncVar = sessionStorage.ID_FUNCIONARIO;
+        fetch(`/funcionarios/validarReset?idFuncVarServer=${idFuncVar}`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((resposta) => {
+                    resposta.forEach((requisicao) => {
+                        sessionStorage.RESET_SENHA = requisicao.resetSenha;
+
+                        location.reload();
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+
+    function redefinirSenha() {
+        console.log(idFuncVar)
+        var novaSenhaVar = document.getElementById("novaSenha").value;
+        console.log(novaSenhaVar)
+
+        fetch(`/funcionarios/redefinirSenha`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idFuncServer: idFuncVar,
+                novaSenhaServer: novaSenhaVar,
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                modal.style.display = "none";
+
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
 </script>
 
 <script type="text/javascript">
