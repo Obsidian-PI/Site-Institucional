@@ -156,32 +156,11 @@ h1{
     justify-content: center;
 }
 
-.assunto input {
-    border-radius: 15px;
-    width: 800px;
-    height: 6vh;
-    padding-left: 20px;
-    font-family: "Poppins", sans-serif;
-
-}
-
-.desc textarea {
-    font-family: "Poppins", sans-serif;
-    border:#000 2px solid;
-    border-radius: 15px;
-    width: 800px;
-    height: 30vh;
-    padding-left: 20px;
-    padding-top: 15px;
-}
-
 .nome input{
     border-radius: 15px;
     width: 414px;
     height: 6vh;
     padding-left: 20px;
-    font-family: "Poppins", sans-serif;
-
 }
 .email input{
     border-radius: 15px;
@@ -288,29 +267,14 @@ h1{
     background-color: #CD5C08;
 }
 
-.notif-num {
+.kpis-direita {
     display: flex;
-    background-color: #CD5C08;
-    padding: 20px;
-    border-radius: 20px 0px 0px 20px;
-    color: #FFF5E4;
-    align-items: center;
 }
 
-.notif {
-    margin-left: 5px;
-    max-width: 800px;
-    background-color: #FFF5E4;
-    outline: 2px;
-    border-color: #CD5C08;
-    padding: 20px;
-    border-radius: 0px 20px 20px 0px;
-    border-top: 5px solid #CD5C08;
+.graphSecond {
+    display: flex;
 }
 
-
-
-.notificacao {
-    margin-top: 10px;
+.kpi {
     display: flex;
 }

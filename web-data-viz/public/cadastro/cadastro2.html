@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cadastro Obsidian</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="../assets/ico.png" type="image/x-icon">
+    
+</head>
+<style>
+    body{
+        background-image: url(./assets/imgs/fundo2.png);
+    }
+</style>
+
+<body>
+    <div class="box">
+        <div class="up">
+            <a href="./tipoEmpresa.html">
+                <img src="./assets/imgs/iconLeft.png" alt="">
+            </a>
+        </div>
+        <div class="Cadastro">
+            <div class="tituloCadastro">
+                <p>Criar conta na</p>
+                <div class="logoCadastro">
+                    <img src="./assets/imgs/logoLogin.png" alt="">
+                    <p>Obsidian</p>
+                </div>
+            </div>
+            <div class="formsCadastro">
+                <div class="info">
+                    <input id="nomeEmpresa" type="text" placeholder="nome da empresa">
+                    <input id="cnpjEmpresa" type="text" placeholder="cnpj">
+                    <input id="emailEmpresa" type="email" placeholder="email contato">
+                </div>
+                <div class="senhas">
+                    <input id="senhaEmpresa" type="password" placeholder="senha">
+                    <input id="confSenhaEmpresa" type="password" placeholder="confirmar senha">
+                </div>
+            </div>
+            <div class="botoesCadastro">
+                <button class="cadastrar" onclick="cadastrar()">Criar Conta</button>
+            </div>
+            <div class="crieConta">
+                <p>Ja possui uma conta na </p> <a href="../login/login.html">Obsidian?</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function cadastrar() {
+        var nomeVar = nomeEmpresa.value;
+        var emailVar = emailEmpresa.value;
+        var cnpjVar = cnpjEmpresa.value;
+        var senhaVar = senhaEmpresa.value;
+        var confirmacaoSenhaVar = confSenhaEmpresa.value;
+        var tipoEmpresaVar = 2;
+
+
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                cnpjServer: cnpjVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar,
+                tipoEmpresaServer: tipoEmpresaVar
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    
+                    setTimeout(() => {
+                        window.location = "../login/login.html";
+                    }, "2000");
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                finalizarAguardar();
+            });
+
+        return false;
+    }
+</script>
