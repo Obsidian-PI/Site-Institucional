@@ -154,12 +154,13 @@ a:hover {
     font-weight: 600;
 }
 
-.graphSecond .tituloGraph p{
+.tituloGraph {
     margin-bottom: 20px;
 }
 
-.kpis-direita .tituloGraph p{
-    margin-bottom: 20px;
+
+.kpis-direita .tituloGraph {
+    margin-bottom: 2 0px;
 }
 
 .graphPrincipal .boxGraphPrincipal {
@@ -271,4 +272,13 @@ a:hover {
     display: flex;
     margin-top: 25px;
     flex-direction: row-reverse;
+}
+
+.kpis-direita {
+    display: flex;
+}
+
+.numero-kpi {
+    font-size: 50px;
+    color: #CD5C08;
 }
