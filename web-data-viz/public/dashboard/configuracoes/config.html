@@ -24,17 +24,23 @@
                 <div class="sectionUp">
                     <div class="btnNav">
                         <div class="fundoBtn">
-                            <a href="../dashboard.html"><p>Dashboard</p></a>
+                            <a href="../dashboard.html">
+                                <p>Dashboard</p>
+                            </a>
                         </div>
                     </div>
                     <div class="btnNav">
                         <div class="fundoBtn">
-                            <a href="../cadastrarFunc/cadastrarFunc.html"><p>Cadastro</p></a>
+                            <a href="../cadastrarFunc/cadastrarFunc.html">
+                                <p>Cadastro</p>
+                            </a>
                         </div>
                     </div>
                     <div class="btnNav">
                         <div class="fundoBtn">
-                            <a href=""><p>Notificações</p></a>
+                            <a href="">
+                                <p>Notificações</p>
+                            </a>
                         </div>
                     </div>
                     <!-- <div class="btnNav">
@@ -44,19 +50,23 @@
                     </div> -->
                     <div class="btnNav">
                         <div class="fundoBtn">
-                            <a href=""><p>Contato</p></a>
+                            <a href="">
+                                <p>Contato</p>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="sectionDown">
                     <div class="btnNav">
                         <div class="fundoBtn press">
-                           <p>Configurações</p>
+                            <p>Configurações</p>
                         </div>
                     </div>
                     <div class="btnNav" onclick="sair()">
                         <div class="fundoBtn">
-                            <a href=""><p>Sair</p></a>
+                            <a href="">
+                                <p>Sair</p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -87,10 +97,24 @@
                     <div class="tituloBox">
                         <h1>Editar informações da conta</h1>
                     </div>
+                    <div class="deletarConta">
+                        <h1>Quer deletar sua conta?</h1>
+                        <button onclick="abrirModal()">Deletar conta</button>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
+    <div id="modalConfirm" class="modal">
+        <div class="modalContent">
+            <h2>Confirmar exclusão</h2>
+            <p>Tem certeza de que deseja deletar sua conta? Esta ação não pode ser desfeita.</p>
+            <div class="modalActions">
+                <button onclick="confirmarDelecao()">Sim, deletar</button>
+                <button onclick="fecharModal()">Cancelar</button>
+            </div>
+        </div>
     </div>
 </body>
 
@@ -99,10 +123,10 @@
         var idEmpresa = sessionStorage.ID_EMPRESA;
         var nomeEmpresa = sessionStorage.NOME_EMPRESA;
 
-            // if (idEmpresa >= 0) {
-            // } else {
-            //   window.location = "../index.html";
-            // }
+        // if (idEmpresa >= 0) {
+        // } else {
+        //   window.location = "../index.html";
+        // }
     }
     verificar();
 
@@ -111,7 +135,44 @@
         window.location = "../../index.html";
     }
 
-    
+    function abrirModal() {
+        document.getElementById("modalConfirm").style.display = "block";
+    }
+
+    // Função para fechar o modal
+    function fecharModal() {
+        document.getElementById("modalConfirm").style.display = "none";
+    }
+
+    // Função de confirmação da exclusão
+    function confirmarDelecao() {
+        alert("Conta deletada com sucesso!"); // Substituir por lógica real de exclusão
+        fecharModal();
+    }
+
+    function confirmarDelecao() {
+        var idFuncionario = sessionStorage.ID_FUNCIONARIO;
+        fetch(`/funcionarios/deletarFunc/${idFuncionario}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                sessionStorage.clear();
+                window.location = "../../index.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+
 </script>
 
 </html>

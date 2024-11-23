@@ -129,10 +129,29 @@ function validarReset(req, res) {
     }
 }
 
+function deletarFunc(req, res) {
+    var idFuncionario = req.params.idFuncionario;
+
+    funcionarioModel.deletarFunc(idFuncionario)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     autenticar,
     listar,
     cadastrar,
     redefinirSenha,
-    validarReset
+    validarReset,
+    deletarFunc
 }

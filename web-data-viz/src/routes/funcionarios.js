@@ -24,4 +24,8 @@ router.get("/validarReset", function (req, res) {
     funcionarioController.validarReset(req, res);
 })
 
+router.delete("/deletarFunc/:idFuncionario", function (req, res) {
+    funcionarioController.deletarFunc(req, res);
+});
+
 module.exports = router;
