@@ -26,7 +26,7 @@
                 </div>
                 <div class="criarConta" id="criarConta">
                     <a href="./login/login.html"><button class="btnCRUD" id="btnCRUD">Entrar</button></a>
-                    <a href="./cadastro/cadastro1.html"><button class="btnCRUD" id="btnCRUD">Criar Conta</button></a>
+                    <a href="./cadastro/cadastro1.html"><button class="btnCRUD" id="btnCRUD">Criar requisição</button></a>
                 </div>
             </div>
     </header>
@@ -418,14 +418,14 @@
 <script>
 
     function verificar() {
-        var idEmpresa = sessionStorage.ID_EMPRESA;
-        var nomeEmpresa = sessionStorage.NOME_EMPRESA;
+        var idFuncionario = sessionStorage.ID_FUNCIONARIO;
+        var nomeFuncionario = sessionStorage.NOME_FUNCIONARIO;
         var tipoEmpresa = sessionStorage.TIPO_EMPRESA;
 
-        if (idEmpresa >= 0) {
-            criarConta.innerHTML = `<a href="./dashboard/dashboard.html"><button class="btnCRUD" id="btnCRUD">${nomeEmpresa}</button></a>`
+        if (idFuncionario >= 0) {
+            criarConta.innerHTML = `<a href="./dashboard/dashboard.html"><button class="btnCRUD" id="btnCRUD">${nomeFuncionario}</button></a>`
         } else {
-            criarConta.innerHTML = '<a href="./login/login.html"><button class="btnCRUD" id="btnCRUD">Entrar</button></a> <a href="./cadastro/cadastro1.html"><button class="btnCRUD" id="btnCRUD">Criar Conta</button></a>';
+            criarConta.innerHTML = '<a href="./login/login.html"><button class="btnCRUD" id="btnCRUD">Entrar</button></a> <a href="./cadastro/cadastro1.html"><button class="btnCRUD" id="btnCRUD">Criar requisição</button></a>';
         }
     }
 

@@ -67,7 +67,8 @@ header {
 }
 
 .criarConta .btnCRUD {
-    width: 130px;
+    width: 159px;
+    margin-left: 10px;
     height: 35px;
     background-color: #CD5C08;
     border-color: #CD5C08;
@@ -75,9 +76,10 @@ header {
     color: #FFF5E4;
     font-size: 16px;
     font-weight: 600;
+    transition: 500ms;
 }
 .criarConta .btnCRUD:hover {
-    width: 130px;
+    width: 150px;
     height: 35px;
     background-color: #573114;
     border-color: #573114;
