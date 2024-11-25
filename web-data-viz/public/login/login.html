@@ -26,16 +26,22 @@
                 </div>
             </div>
             <div class="formsLogin">
-                <input type="text" placeholder="cpf" id="cpfFuncionario" oninput="aplicarMascaraCPF(this)">
-                <input type="password" placeholder="senha" id="senhaFuncionario">
+                <input type="text" placeholder="CPF" id="cpfFuncionario" oninput="aplicarMascaraCPF(this)">
+                <input type="password" placeholder="Senha" id="senhaFuncionario">
             </div>
             <div class="botoesLogin">
                 <button class="entrar" onclick="entrar()">Entrar</button>
-                <button class="esqSenha">Esqueceu a senha?</button>
+
+                <a href="./reset-senha.html" class="esqueceu">
+                    <button class="esqSenha">
+                        Esqueceu a senha?
+                    </button>
+                </a>
+                
                 <p id="erros" style="color: red; font-size: 13px;"></p>
             </div>
             <div class="crieConta">
-                <p>crie uma conta na </p> <a href="../cadastro/cadastro1.html">Obsidian</a>
+                <p>Crie uma conta na </p> <a href="../cadastro/cadastro1.html">Obsidian</a>
             </div>
         </div>
     </div>
@@ -43,6 +49,10 @@
 
 
 <script>
+
+    function resetar() {
+
+    }
 
     function aplicarMascaraCPF(input) {
         let valor = input.value.replace(/\D/g, '');

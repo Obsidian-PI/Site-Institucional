@@ -29,6 +29,8 @@ body {
     width: 100%;
     height: 8vh;
     align-items: center;
+    margin-top: 2vh;
+    margin-left: 2vh;
 }
 
 .box .up img {
@@ -148,6 +150,7 @@ body {
     background-color: #FFF;
     color: #151515;
 }
+
 
 .box .Cadastro .crieConta {
     display: flex;
