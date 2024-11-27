@@ -42,7 +42,6 @@ function deletarReq(idRequisicaoDado) {
     return database.executar(instrucaoSql);
 }
 
-
 module.exports = {
     autenticar,
     listarRequisicoes,
