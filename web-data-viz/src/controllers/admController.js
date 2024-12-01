@@ -48,6 +48,22 @@ function listarRequisicoes(req, res) {
     });
 }
 
+function listarEmpresas(req, res) {
+    admModel.listarEmpresas().then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function listarEmpresasCount(req, res) {
+    admModel.listarEmpresasCount().then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function listar(req, res) {
     admModel.listar().then(function (resultado) {
         res.status(200).json(resultado);
@@ -80,10 +96,28 @@ function pegarDados(req, res) {
     }
 }
 
-function deletarReq(req, res) {
+function recusarReq(req, res) {
     var idRequisicaoDado = req.params.idRequisicaoDado;
 
-    admModel.deletarReq(idRequisicaoDado)
+    admModel.recusarReq(idRequisicaoDado)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function aprovarReq(req, res) {
+    var idRequisicaoDado = req.params.idRequisicaoDado;
+
+    admModel.aprovarReq(idRequisicaoDado)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -103,5 +137,8 @@ module.exports = {
     listarRequisicoes,
     listar,
     pegarDados,
-    deletarReq
+    recusarReq,
+    listarEmpresas,
+    aprovarReq,
+    listarEmpresasCount
 }

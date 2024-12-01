@@ -16,7 +16,7 @@ function cadastrar(razao, nomeFan, cnpj, nomeFunc, emailFunc, cpf) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        INSERT INTO requisicao (razaoSocial, nomeFantasia, cnpj, nomeFunc, cpf, emailFunc) values ('${razao}', '${nomeFan}', '${cnpj}','${nomeFunc}', '${cpf}', '${emailFunc}');
+        INSERT INTO requisicao (razaoSocial, nomeFantasia, cnpj, nomeFunc, cpf, emailFunc, statusReq) values ('${razao}', '${nomeFan}', '${cnpj}','${nomeFunc}', '${cpf}', '${emailFunc}', 'PENDENTE');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

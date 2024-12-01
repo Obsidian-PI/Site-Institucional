@@ -9,13 +9,13 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="listarRequisicoes()">
+<body onload="listarRequisicoes(), listarEmpresasCount()">
     <div class="nav">
         <div class="titulo">Obsidian</div>
         <div class="navBtns">
             <a href="">DashBoard</a>
             <a href="../requisicoes/req.html">Requisições</a>
-            <a href="">Incidentes</a>
+            <a href="../empresas/empresas.html">Empresas</a>
         </div>
         <div class="sair">
             <a href="">Sair</a>
@@ -44,11 +44,13 @@
             </div>
             <div class="incidentes">
                 <div class="tituloKpi">
-                    <p>Incidentes abertos:</p>
+                    <p>Empresas ativas:</p>
                 </div>
-                <div class="boxKpi">
-                    <p>14</p>
-                </div>
+                <a href="../empresas/empresas.html">
+                    <div id="kpiEmp" class="boxKpi">
+
+                    </div>
+                </a>
             </div>
         </div>
     </div>
@@ -64,6 +66,22 @@
                 resposta.json().then((resposta) => {
                     resposta.forEach((requisicao) => {
                         kpiReq.innerHTML = `<p>${requisicao.total_requisicoes}</p>`;
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function listarEmpresasCount() {
+        fetch(`/adms/listarEmpresasCount`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((resposta) => {
+                    resposta.forEach((requisicao) => {
+                        kpiEmp.innerHTML = `<p>${requisicao.total_empresas}</p>`;
                     });
                 });
             })

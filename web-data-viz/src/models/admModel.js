@@ -17,9 +17,26 @@ function listarRequisicoes() {
     return database.executar(instrucao);
 }
 
+function listarEmpresasCount() {
+    var instrucao = `
+        SELECT COUNT(*) AS total_empresas FROM empresa;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function listarEmpresas() {
+    var instrucao = `
+        SELECT e.idEmpresa, e.nomeFantasia, e.cnpj, COUNT(f.idFuncionario) AS totalFuncionarios FROM empresa e LEFT JOIN funcionario f ON e.idEmpresa = f.fkEmpresa GROUP BY e.idEmpresa, e.nomeFantasia, e.cnpj;
+
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function listar() {
     var instrucao = `
-        SELECT idRequisicao, nomeFantasia, nomeFunc, DATE_FORMAT(dataCriada, '%d/%m/%Y') AS dataCriadaFormatada FROM requisicao ORDER BY dataCriada ASC;
+        SELECT idRequisicao, nomeFantasia, nomeFunc, DATE_FORMAT(dataCriada, '%d/%m/%Y') AS dataCriadaFormatada FROM requisicao WHERE statusReq = 'PENDENTE' ORDER BY dataCriada ASC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -33,20 +50,29 @@ function pegarDados(idRequisicao){
     return database.executar(instrucaoSql)
 }
 
-function deletarReq(idRequisicaoDado) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idRequisicaoDado);
+function recusarReq(idRequisicaoDado) {
     var instrucaoSql = `
-        DELETE FROM requisicao WHERE idRequisicao = ${idRequisicaoDado};
+        UPDATE requisicao SET statusReq = 'RECUSADO' where idRequisicao = ${idRequisicaoDado};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
+function aprovarReq(idRequisicaoDado) {
+    var instrucaoSql = `
+        UPDATE requisicao SET statusReq = 'APROVADO' where idRequisicao = ${idRequisicaoDado};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     autenticar,
     listarRequisicoes,
     listar,
     pegarDados,
-    deletarReq
+    recusarReq,
+    listarEmpresas,
+    aprovarReq,
+    listarEmpresasCount
 };

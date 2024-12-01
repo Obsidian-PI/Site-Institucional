@@ -33,7 +33,8 @@
                 <div class="info">
                     <input id="razaoSocial" type="text" placeholder="razao social">
                     <input id="nomeFEmpresa" type="text" placeholder="nome fantasia">
-                    <input id="cnpjEmpresa" type="text" placeholder="cnpj" oninput="aplicarMascaraCNPJ(this)" maxlength="18">
+                    <input id="cnpjEmpresa" type="text" placeholder="cnpj" oninput="aplicarMascaraCNPJ(this)"
+                        maxlength="18">
                 </div>
             </div>
             <div class="botoesCadastro">
@@ -75,7 +76,7 @@
                 </div>
             </div>
             <div class="botoesCadastro">
-                <button class="cadastrar" onclick="enviar()">Enviar requisição</button>
+                <button class="cadastrar" onclick="enviar(), abrirModal()">Enviar requisição</button>
             </div>
             <div class="crieConta">
                 <p>Já possui uma conta na </p> <a href="../login/login.html">Obsidian?</a>
@@ -84,6 +85,14 @@
                 <div class="bola" onclick="voltar()"></div>
                 <div class="bola atual"></div>
             </div>
+        </div>
+    </div>
+    <div id="modalSuccess" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharModal()">&times;</span>
+            <h2>Requisição enviada!</h2>
+            <p>Você recebera um email com as futuras atualizações da sua requisicão</p>
+            <button onclick="redirecionar()">Ok</button>
         </div>
     </div>
 </body>
@@ -144,20 +153,14 @@
                     ${cnpjVar}\n
                     ${nomeFuncVar}\n
                     ${emailFuncVar}\n
-                    ${cpfVar}`)
+                    ${cpfVar}`);
 
-        // validação feita pelo Rodolfo, pendente de teste
         if (!nomeFanVar || !emailFuncVar || !cnpjVar) {
             alert("Por favor, preencha todos os campos.");
             return false;
         }
 
         var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        /* 
-        /^ indica o inicio, [^\s@] onde vamos receber o email garantindo que não haverá espaço ou caractere especial
-           +@ indica o arroba após a primeira parte do texto, temos o recebimento do dominio, a obrigatoriedade do ponto e $ para 
-           apontar o final
-        */
         if (!emailRegex.test(emailFuncVar)) {
             alert("Por favor, insira um email válido.");
             return false;
@@ -181,20 +184,29 @@
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-
-                    // setTimeout(() => {
-                    //     window.location = "../login/login.html";
-                    // }, "2000");
-
+                    abrirModal();
+                    setTimeout(() => {
+                        redirecionar();
+                    }, 3000);
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
-                finalizarAguardar();
             });
 
         return false;
+    }
+    function abrirModal() {
+        document.getElementById("modalSuccess").style.display = "block";
+    }
+
+    function fecharModal() {
+        document.getElementById("modalSuccess").style.display = "none";
+    }
+
+    function redirecionar() {
+        window.location = "../index.html";
     }
 </script>

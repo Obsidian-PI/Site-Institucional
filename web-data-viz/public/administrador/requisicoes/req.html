@@ -15,7 +15,7 @@
         <div class="navBtns">
             <a href="../dashboard/dash.html">DashBoard</a>
             <a href="">Requisições</a>
-            <a href="">Incidentes</a>
+            <a href="../empresas/empresas.html">Empresas</a>
         </div>
         <div class="sair">
             <a href="">Sair</a>
@@ -218,7 +218,7 @@
         })
             .then(function (resposta) {
                 console.log("resposta: ", resposta);
-                deletarReq(idRequisicaoDado)
+                aprovarReq(idRequisicaoDado)
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
@@ -228,8 +228,28 @@
         return false;
     }
 
-    function deletarReq(idRequisicaoDado) {
-        fetch(`/adms/deletarReq/${idRequisicaoDado}`, {
+    function recusarReq(idRequisicaoDado) {
+        fetch(`/adms/recusarReq/${idRequisicaoDado}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                location.reload();
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    function aprovarReq(idRequisicaoDado) {
+        fetch(`/adms/aprovarReq/${idRequisicaoDado}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -253,7 +273,7 @@
     }
 
     function recusar() {
-        deletarReq(idRequisicaoDado)
+        recusarReq(idRequisicaoDado)
     }
 
 
