@@ -11,7 +11,7 @@ function autenticar(cpf, senha) {
 
 function listarRequisicoes() {
     var instrucao = `
-        SELECT COUNT(*) AS total_requisicoes FROM requisicao;
+        SELECT COUNT(*) AS total_requisicoes FROM requisicao WHERE statusReq = 'PENDENTE';
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -50,6 +50,14 @@ function pegarDados(idRequisicao){
     return database.executar(instrucaoSql)
 }
 
+function pegarDadosEmpresa(idEmpresa){
+    var instrucaoSql = `
+    select * from empresa where idEmpresa = ${idEmpresa};
+    `
+
+    return database.executar(instrucaoSql)
+}
+
 function recusarReq(idRequisicaoDado) {
     var instrucaoSql = `
         UPDATE requisicao SET statusReq = 'RECUSADO' where idRequisicao = ${idRequisicaoDado};
@@ -66,6 +74,33 @@ function aprovarReq(idRequisicaoDado) {
     return database.executar(instrucaoSql);
 }
 
+function atualizarEmpresa(idEmpresa, razao, nomeFan) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", idEmpresa, razao, nomeFan);
+    var instrucaoSql = `
+        UPDATE empresa SET razaoSocial = '${razao}', nomeFantasia = '${nomeFan}' WHERE idEmpresa = ${idEmpresa};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function excluirEmpresa(idEmpresa) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idEmpresa);
+    var instrucaoSql = `
+        DELETE FROM empresa WHERE idEmpresa = ${idEmpresa};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function excluirFuncionarios(idEmpresa) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idEmpresa);
+    var instrucaoSql = `
+        DELETE FROM funcionario WHERE fkEmpresa = ${idEmpresa};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     listarRequisicoes,
@@ -74,5 +109,9 @@ module.exports = {
     recusarReq,
     listarEmpresas,
     aprovarReq,
-    listarEmpresasCount
+    listarEmpresasCount,
+    pegarDadosEmpresa,
+    atualizarEmpresa,
+    excluirEmpresa,
+    excluirFuncionarios
 };

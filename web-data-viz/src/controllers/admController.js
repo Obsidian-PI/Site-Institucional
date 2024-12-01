@@ -96,6 +96,30 @@ function pegarDados(req, res) {
     }
 }
 
+function pegarDadosEmpresa(req, res) {
+    var idEmpresa = req.query.idEmpresaServer;
+
+    if (idEmpresa == undefined) {
+        res.status(400).send("idEmpresa esta undefined")
+    } else {
+
+        admModel.pegarDadosEmpresa(idEmpresa)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro)
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: erro.sqlMessage"
+                    );
+                    res.status(500).json(erro.sqlMessage)
+                }
+            )
+    }
+}
+
 function recusarReq(req, res) {
     var idRequisicaoDado = req.params.idRequisicaoDado;
 
@@ -132,6 +156,62 @@ function aprovarReq(req, res) {
         );
 }
 
+function atualizarEmpresa(req, res) {
+    var idEmpresa = req.body.idEmpresaServer;
+    var razao = req.body.razaoServer;
+    var nomeFan = req.body.nomeFanServer;
+
+    admModel.atualizarEmpresa(idEmpresa, razao, nomeFan)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function excluirEmpresa(req, res) {
+    var idEmpresa = req.params.idEmpresaDado;
+
+    admModel.excluirEmpresa(idEmpresa)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function excluirFuncionarios(req, res) {
+    var idEmpresa = req.params.idEmpresaDado;
+
+    admModel.excluirFuncionarios(idEmpresa)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     autenticar,
     listarRequisicoes,
@@ -140,5 +220,9 @@ module.exports = {
     recusarReq,
     listarEmpresas,
     aprovarReq,
-    listarEmpresasCount
+    listarEmpresasCount,
+    pegarDadosEmpresa,
+    atualizarEmpresa,
+    excluirEmpresa,
+    excluirFuncionarios
 }

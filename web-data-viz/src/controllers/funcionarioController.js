@@ -102,7 +102,6 @@ function redefinirSenha(req, res) {
                 res.status(500).json(erro.sqlMessage);
             }
         );
-
 }
 
 function validarReset(req, res) {

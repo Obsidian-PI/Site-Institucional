@@ -27,12 +27,28 @@ router.get("/pegarDados", function (req, res) {
     admController.pegarDados(req, res);
 })
 
+router.get("/pegarDadosEmpresa", function (req, res) {
+    admController.pegarDadosEmpresa(req, res);
+})
+
 router.delete("/recusarReq/:idRequisicaoDado", function (req, res) {
     admController.recusarReq(req, res);
 });
 
 router.delete("/aprovarReq/:idRequisicaoDado", function (req, res) {
     admController.aprovarReq(req, res);
+});
+
+router.put("/atualizarEmpresa", function (req, res) {
+    admController.atualizarEmpresa(req, res);
+});
+
+router.delete("/excluirEmpresa/:idEmpresaDado", function (req, res) {
+    admController.excluirEmpresa(req, res);
+});
+
+router.delete("/excluirFuncionarios/:idEmpresaDado", function (req, res) {
+    admController.excluirFuncionarios(req, res);
 });
 
 module.exports = router;

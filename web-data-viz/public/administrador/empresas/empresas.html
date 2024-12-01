@@ -45,29 +45,40 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
-            <h2>Aprovar Requisição</h2>
-            <p>Detalhes da requisição</p>
+            <h2>Informações da Empresa</h2>
+            <p>Editar ou excluir empresa</p>
             <div class="divPedido">
                 <div class="forms">
                     <p>Razão Social:</p>
-                    <input type="text" id="razaoSocial" disabled>
+                    <input type="text" id="razaoSocial">
                     <p>Nome Fantasia:</p>
-                    <input type="text" id="nomeFantasia" disabled>
+                    <input type="text" id="nomeFantasia">
                     <p>CNPJ:</p>
                     <input type="text" id="cnpj" disabled>
                 </div>
-                <div class="forms">
+                <!-- <div class="forms">
                     <p>Nome:</p>
                     <input type="text" id="nomeFunc" disabled>
                     <p>Email:</p>
                     <input type="text" id="emailFunc" disabled>
                     <p>CPF:</p>
                     <input type="text" id="cpf" disabled>
-                </div>
+                </div> -->
             </div>
             <div class="btns">
-                <button class="recusar" onclick="recusar()">Recusar</button>
-                <button class="aprovar" onclick="aprovar()">Aprovar</button>
+                <button class="recusar" onclick="excluir()">Excluir</button>
+                <button class="aprovar" onclick="atualizar()">Atualizar</button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-excluir" class="modal">
+        <div class="modal-content">
+            <span class="close-btn-excluir">&times;</span>
+            <h2>Confirmar Exclusão</h2>
+            <p>Tem certeza de que deseja excluir esta empresa?</p>
+            <div class="btns">
+                <button class="aprovar" id="cancelarExclusao">Cancelar</button>
+                <button class="recusar" id="confirmarExclusao">Excluir</button>
             </div>
         </div>
     </div>
@@ -91,7 +102,7 @@
                         <p>${requisicao.totalFuncionarios}</p>
                     </div>
                     <div class="aprove">
-                        <img onclick="pegarDados(${requisicao.idEmpresa})" src="../assets/botao-editar.png" alt="">
+                        <img onclick="pegarDadosEmpresa(${requisicao.idEmpresa})" src="../assets/botao-editar.png" alt="">
                     </div>
                 </div>`;
                     });
@@ -101,6 +112,138 @@
                 console.log(`#ERRO: ${resposta}`);
             });
     }
+
+    var idEmpresaDado;
+
+    function pegarDadosEmpresa(idEmpresa) {
+
+        fetch(`/adms/pegarDadosEmpresa?idEmpresaServer=${idEmpresa}`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((resposta) => {
+                    resposta.forEach((dadosReq) => {
+                        idEmpresaDado = dadosReq.idEmpresa
+                        razaoSocial.value = dadosReq.razaoSocial;
+                        nomeFantasia.value = dadosReq.nomeFantasia;
+                        cnpj.value = dadosReq.cnpj;
+                    });
+                });
+            })
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const modal = document.getElementById("modal");
+        const closeModalBtn = document.querySelector(".close-btn");
+        closeModalBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+        window.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+        document.getElementById("reqs").addEventListener("click", (event) => {
+            if (event.target.tagName === "IMG" && event.target.parentElement.classList.contains("aprove")) {
+                modal.style.display = "block";
+            }
+        });
+    });
+
+    function atualizar() {
+        idEmpresaVar = idEmpresaDado;
+        razaoVar = razaoSocial.value;
+        nomeFanVar = nomeFantasia.value;
+
+        fetch(`/adms/atualizarEmpresa`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idEmpresaServer: idEmpresaVar,
+                razaoServer: razaoVar,
+                nomeFanServer: nomeFanVar,
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                location.reload();
+
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const modalExcluir = document.getElementById("modal-excluir");
+        const closeModalExcluirBtn = document.querySelector(".close-btn-excluir");
+        const cancelarExclusaoBtn = document.getElementById("cancelarExclusao");
+        const confirmarExclusaoBtn = document.getElementById("confirmarExclusao");
+
+        closeModalExcluirBtn.addEventListener("click", () => {
+            modalExcluir.style.display = "none";
+        });
+
+        cancelarExclusaoBtn.addEventListener("click", () => {
+            modalExcluir.style.display = "none";
+        });
+
+        window.addEventListener("click", (event) => {
+            if (event.target === modalExcluir) {
+                modalExcluir.style.display = "none";
+            }
+        });
+
+        confirmarExclusaoBtn.addEventListener("click", () => {
+            excluirFuncionarios();
+        });
+    });
+
+    function excluir() {
+        const modalExcluir = document.getElementById("modal-excluir");
+        modalExcluir.style.display = "block";
+    }
+
+    function excluirEmpresa() {
+        fetch(`/adms/excluirEmpresa/${idEmpresaDado}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+            .then((resposta) => {
+                if (resposta.ok) {
+                    location.reload();
+                } else {
+                    alert("Erro ao excluir a empresa.");
+                }
+            })
+            .catch((erro) => console.error(`#ERRO: ${erro}`));
+    }
+
+    function excluirFuncionarios() {
+        fetch(`/adms/excluirFuncionarios/${idEmpresaDado}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+            .then((resposta) => {
+                if (resposta.ok) {
+                    excluirEmpresa()
+                } else {
+                    alert("Erro ao excluir a empresa.");
+                }
+            })
+            .catch((erro) => console.error(`#ERRO: ${erro}`));
+    }
+
 </script>
 
 </html>
