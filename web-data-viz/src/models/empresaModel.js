@@ -14,7 +14,25 @@ function pegarEmpresa(cnpj) {
   return database.executar(instrucao);
 }
 
+function atualizarEmpresa(idEmpresa, razao, nomeFan, cnpj) {
+  var instrucaoSql = `
+      UPDATE empresa
+      SET razaoSocial = ${razao}, nomeFantasia = ${nomeFan}, cnpj = ${cnpj}
+      WHERE idEmpresa = ${idEmpresa};
+  `;
+  return database.executar(instrucaoSql, [razao, nomeFan, cnpj, idEmpresa]);
+}
+
+function deletarEmpresa(cnpj){
+  var instrucaoSql = `DELETE idEmpresa from empresa where cnpj = ${cnpj};
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucaoSql)
+}
+
 module.exports = { 
   cadastrar,
-  pegarEmpresa
+  pegarEmpresa,
+  atualizarEmpresa,
+  deletarEmpresa
 };
