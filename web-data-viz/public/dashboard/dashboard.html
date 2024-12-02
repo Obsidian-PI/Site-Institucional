@@ -85,8 +85,10 @@
                             </div>
                             <div class="boxKpi">
                                 <div>
-                                    <p class="numero-kpi">30%</p>
-                                    <p>de aumento nos próximos 10 anos</p>
+                                    <p class="numero-kpi">
+                                        <asd id="kpi2"></asd>
+                                    </p>
+                                    <p>Total de emissões em toneladas de 2022</p>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +106,7 @@
                     </div>
 
                     <div class="tituloGraph">
-                        <p>Emissões mensais de CO² no estado </p>
+                        <p>A média das emissões anuais de CO² no estado </p>
                         <select id="selectUF" class="selectUF">
                             <option disabled selected>UF</option>
                             <option value="AC">AC</option>
@@ -147,12 +149,14 @@
                     </div>
                     <div class="boxKpi">
                         <div>
-                            <p class="numero-kpi">15%</p>
-                            <p>de aumento nos próximos 10 anos</p>
+                            <p class="numero-kpi">
+                                <fds id="kpi1"></fds>
+                            </p>
+                            <p>Quantidade de estados com a média de emissões maior que 1.000.000 toneladas</p>
                         </div>
                     </div>
                     <div class="tituloGraph">
-                        <p>Estados que mais emitem CO² (em toneladas)</p>
+                        <p>A média das emissões dos estados que mais emitem CO² (em toneladas)</p>
                     </div>
                     <div class="boxKpi">
                         <div id="geochart-colors"></div>
@@ -247,6 +251,44 @@
         });
     }
 
+</script>
+
+<script>
+    pegarMedia();
+    function pegarMedia() {
+        fetch(`/medidas/buscarMedia`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((resposta) => {
+                    resposta.forEach((requisicao) => {
+                        kpi1.innerHTML = `<p>${requisicao.quantidadeEstados}</p>`;
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+</script>
+
+<script>
+    pegarTotal();
+    function pegarTotal() {
+        fetch(`/medidas/buscarTotal`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((resposta) => {
+                    resposta.forEach((requisicao) => {
+                        kpi2.innerHTML = `<p>${requisicao.totalEmissoes2022}</p>`;
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
 </script>
 
 <script type="text/javascript">
@@ -382,7 +424,7 @@
     google.charts.setOnLoadCallback(drawInitialChart);
 
     function drawInitialChart() {
-        drawBarChart('AC');
+        drawBarChart(estadoSiglas[0]);
     }
 
     document.getElementById("selectUF").addEventListener("change", function () {

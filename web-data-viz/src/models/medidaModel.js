@@ -1,3 +1,4 @@
+// const { buscarDias } = require("../controllers/medidaController");
 var database = require("../database/config");
 
 function buscarMedidas() {
@@ -21,6 +22,69 @@ function buscarMedidas() {
     return database.executar(instrucaoSql);
 }
 
-module.exports = {
-    buscarMedidas
+function buscarMedia() {
+
+    var instrucaoSql = `
+        SELECT 
+    COUNT(*) AS quantidadeEstados
+FROM (
+    SELECT 
+        estado,
+        ROUND(avg(doisMilDoze + doisMilTreze + doisMilQuatorze + doisMilQuinze + 
+         doisMilDezesseis + doisMilDezessete + doisMilDezoito + 
+         doisMilDezenove + doisMilVinte + doisMilVinteUm + doisMilVinteDois)) AS mediaEmissoes
+    FROM 
+        carbonFootprint
+    GROUP BY 
+        estado
+) AS medias
+WHERE 
+    medias.mediaEmissoes > 1000000;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
+
+function buscarTotal() {
+
+    var instrucaoSql = `
+        SELECT 
+    SUM(doisMilVinteDois) AS totalEmissoes2022
+FROM 
+    carbonFootprint;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarDias() {
+
+    var instrucaoSql = `
+        SELECT 
+    DATE_FORMAT(dataCriada, '%d/%m') AS diaMes,
+    COUNT(*) AS quantidadeRequisicoes
+FROM 
+    requisicao
+WHERE 
+    statusReq = 'ABERTA'
+GROUP BY 
+    DATE_FORMAT(dataCriada, '%d/%m')
+ORDER BY 
+    MIN(DATE(dataCriada)) limit 7;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+module.exports = {
+    buscarMedidas,
+    buscarMedia,
+    buscarTotal,
+    buscarDias
+}
+
+
+
