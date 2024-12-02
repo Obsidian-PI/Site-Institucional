@@ -48,8 +48,9 @@ function cadastrar(req, res) {
     var nomeFunc = req.body.nomeFuncServer
     var emailFunc = req.body.emailFuncServer;
     var cpf = req.body.cpfServer;
+    var token = req.body.token;
 
-    usuarioModel.cadastrar(razao, nomeFan, cnpj, nomeFunc, emailFunc, cpf)
+    usuarioModel.cadastrar(razao, nomeFan, cnpj, nomeFunc, cpf, emailFunc, token)
         .then(
             function (resultadoAutenticar) {
                 console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
@@ -74,7 +75,37 @@ function cadastrar(req, res) {
         );
 }
 
+function validarToken(req, res) {
+    var token = req.body.token;
+
+        usuarioModel.validarToken(token)
+            .then(
+                function (resultadoAutenticar) {
+                    console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
+
+                    if (resultadoAutenticar.length == 1) {
+                        console.log(resultadoAutenticar);
+                        res.json({
+                            id: resultadoAutenticar[0].idRequisicao,
+                        });
+                    } else if (resultadoAutenticar.length == 0) {
+                        res.status(403).send("Email e/ou senha inválido(s)");
+                    } else {
+                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+                    }
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    validarToken
 }

@@ -31,7 +31,7 @@
             </div>
             <div class="formsCadastro">
                 <div class="info">
-                    <input id="razaoSocial" type="text" placeholder="razao social">
+                    <input id="razaoSocial" type="text" placeholder="razão social">
                     <input id="nomeFEmpresa" type="text" placeholder="nome fantasia">
                     <input id="cnpjEmpresa" type="text" placeholder="cnpj" oninput="aplicarMascaraCNPJ(this)" maxlength="18">
                 </div>
@@ -132,12 +132,13 @@
 
 
     function enviar() {
-        var razaoVar = razaoSocial.value;
-        var nomeFanVar = nomeFEmpresa.value;
-        var cnpjVar = cnpjEmpresa.value;
-        var nomeFuncVar = nomeFunc.value;
-        var emailFuncVar = emailFunc.value;
-        var cpfVar = cpf.value;
+        const razaoVar = document.getElementById('razaoSocial').value;
+        const nomeFanVar = document.getElementById('nomeFEmpresa').value;
+        const cnpjVar = document.getElementById('cnpjEmpresa').value;
+        const nomeFuncVar = document.getElementById('nomeFunc').value;
+        const emailFuncVar = document.getElementById('emailFunc').value;
+        const cpfVar = document.getElementById('cpf').value;
+        const resetToken = Math.random().toString(36).substr(2); 
 
         console.log(`${razaoVar}\n
                     ${nomeFanVar}\n
@@ -174,7 +175,8 @@
                 cnpjServer: cnpjVar,
                 nomeFuncServer: nomeFuncVar,
                 emailFuncServer: emailFuncVar,
-                cpfServer: cpfVar
+                cpfServer: cpfVar,
+                token: resetToken
             }),
         })
             .then(function (resposta) {
@@ -192,9 +194,44 @@
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
-                finalizarAguardar();
             });
+
+            fetch("/email/enviar-email", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                razaoServer: razaoVar,
+                nomeFanServer: nomeFanVar,
+                cnpjServer: cnpjVar,
+                nomeFuncServer: nomeFuncVar,
+                emailFuncServer: emailFuncVar,
+                cpfServer: cpfVar,
+                token: resetToken
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    // setTimeout(() => {
+                    //     window.location = "../login/login.html";
+                    // }, "2000");
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
 
         return false;
     }
+
+
+    
 </script>

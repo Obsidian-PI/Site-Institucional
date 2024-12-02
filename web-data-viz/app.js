@@ -21,6 +21,8 @@ var avisosRouter = require("./src/routes/avisos");
 var empresaRouter = require("./src/routes/empresas");
 var funcionariosRouter = require("./src/routes/funcionarios");
 var admsRouter = require("./src/routes/adms");
+var emailRouter = require("./src/routes/email");
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,6 +36,7 @@ app.use("/avisos", avisosRouter);
 app.use("/empresas", empresaRouter);
 app.use("/funcionarios", funcionariosRouter);
 app.use("/adms", admsRouter);
+app.use("/email", emailRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`
@@ -51,3 +54,7 @@ app.listen(PORTA_APP, function () {
     \tSe .:producao:. você está se conectando ao banco remoto. \n\n
     \t\tPara alterar o ambiente, comente ou descomente as linhas 1 ou 2 no arquivo 'app.js'\n\n`);
 });
+
+
+
+
