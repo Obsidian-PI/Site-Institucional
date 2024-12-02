@@ -6,57 +6,102 @@
 comandos para mysql server
 */
 
-CREATE DATABASE aquatech;
+create database obsidian;
+-- drop database obsidian;
+use obsidian;
 
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
+create table empresa (
+	idEmpresa int primary key AUTO_INCREMENT,
+	razaoSocial varchar(90),
+	nomeFantasia varchar(70),
+	descricao varchar(255),
+	cnpj varchar(18)
 );
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+create table alerta(
+	idAlerta int primary key AUTO_INCREMENT,
+	tipo varchar(45),
+	descricao varchar(255),
+	dtAlerta DATETIME DEFAULT CURRENT_TIMESTAMP,
+	statusAlerta varchar(50),
+	parametro varchar(40),
+	fkEmpresa int,
+	constraint fkEmpresa FOREIGN KEY (fkEmpresa) 
+	references empresa (idEmpresa)
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+create table cargo(
+	idCargo int primary key AUTO_INCREMENT,
+	tipo varchar(255)
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+insert into cargo (tipo) values ("Representante Legal");
+
+create table telefone(
+	idTelefone int primary key AUTO_INCREMENT,
+	ddd varchar(3),
+	numero varchar(255)
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
+create table funcionario(
+	idFuncionario int primary key AUTO_INCREMENT,
+	nome varchar(60),
+	cpf varchar(15),
+	email varchar(90),
+	senha varchar(30),
+	resetSenha boolean default true,
+	fkEmpresa int,
+	fkCargo int,
+	constraint fkCargo FOREIGN KEY (fkCargo)
+	references cargo (idCargo),
+	fkTelefone int,
+	constraint fkTelefone FOREIGN KEY(fkTelefone)
+	references telefone(idTelefone)
 );
 
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+select * from funcionario;
+
+select resetSenha from funcionario where idFuncionario = 2;
+
+UPDATE funcionario SET senha = 'asdasda', resetSenha = false WHERE idFuncionario = 2;
+
+create table administrador(
+	idAdministrador int primary key AUTO_INCREMENT,
+	nome varchar(255),
+	cpf varchar(14),
+	senha varchar(255)
+);
+
+insert into administrador (nome, cpf, senha) values ("Igor", "483.340.618-70", "123");
+
+create table requisicao(
+	idRequisicao int primary key AUTO_INCREMENT,
+	razaoSocial varchar(90),
+	nomeFantasia varchar(70),
+	cnpj varchar(18),
+	nomeFunc varchar(60),
+	cpf varchar(15),
+	emailFunc varchar(90),
+	dataCriada TIMESTAMP default current_TIMESTAMP,
+	statusReq varchar(40)
+);
+
+select * from requisicao;
+
+create table carbonFootprint (
+	idCarbonFootprint int primary key auto_increment,
+	gas varchar(45),
+	setorEmissao varchar(30),
+	estado varchar(45),
+	doisMilDoze decimal,
+	doisMilTreze decimal,
+	doisMilQuatorze decimal,
+	doisMilQuinze decimal,
+	doisMilDezesseis decimal,
+	doisMilDezessete decimal,
+	doisMilDezoito decimal,
+	doisMilDezenove decimal,
+	doisMilVinte decimal,
+	doisMilVinteUm decimal,
+	doisMilVinteDois decimal
+);

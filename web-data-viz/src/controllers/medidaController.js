@@ -1,8 +1,8 @@
 var medidaModel = require("../models/medidaModel");
 
-function buscarUltimasMedidas(req, res) {
+function buscarMedidas(req, res) {
 
-    medidaModel.buscarUltimasMedidas().then(function (resultado) {
+    medidaModel.buscarMedidas().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -10,13 +10,11 @@ function buscarUltimasMedidas(req, res) {
         }
     }).catch(function (erro) {
         console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }
 
-
-
 module.exports = {
-    buscarUltimasMedidas,
+    buscarMedidas
 }

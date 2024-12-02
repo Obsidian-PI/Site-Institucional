@@ -21,6 +21,7 @@ var avisosRouter = require("./src/routes/avisos");
 var empresaRouter = require("./src/routes/empresas");
 var funcionariosRouter = require("./src/routes/funcionarios");
 var admsRouter = require("./src/routes/adms");
+var medidasRouter = require("./src/routes/medidas");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,12 +35,13 @@ app.use("/avisos", avisosRouter);
 app.use("/empresas", empresaRouter);
 app.use("/funcionarios", funcionariosRouter);
 app.use("/adms", admsRouter);
+app.use("/medidas", medidasRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`
     ##   ##  ######   #####             ####       ##     ######     ##              ##  ##    ####    ######  
     ##   ##  ##       ##  ##            ## ##     ####      ##      ####             ##  ##     ##         ##  
-    ##   ##  ##       ##  ##    chu     ##  ##   ##  ##     ##     ##  ##            ##  ##     ##        ##   
+    ##   ##  ##       ##  ##            ##  ##   ##  ##     ##     ##  ##            ##  ##     ##        ##   
     ## # ##  ####     #####    ######   ##  ##   ######     ##     ######   ######   ##  ##     ##       ##    
     #######  ##       ##  ##            ##  ##   ##  ##     ##     ##  ##            ##  ##     ##      ##     
     ### ###  ##       ##  ##            ## ##    ##  ##     ##     ##  ##             ####      ##     ##      

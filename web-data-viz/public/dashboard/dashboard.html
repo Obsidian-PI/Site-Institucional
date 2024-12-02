@@ -99,10 +99,10 @@
                                     <p class="numero-kpi">20/100</p>
                                     <p>de aumento nos próximos 10 anos</p>
                                 </div>
-                            </div>  
+                            </div>
                         </div>
                     </div>
-                    
+
                     <div class="tituloGraph">
                         <p>Emissões mensais de CO² no estado </p>
                         <select id="selectUF" class="selectUF">
@@ -250,43 +250,103 @@
 </script>
 
 <script type="text/javascript">
+
     google.charts.load('current', {
         'packages': ['geochart'],
         'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
     });
+
     google.charts.setOnLoadCallback(drawRegionsMap);
 
+    const estadoSiglas = {
+        'Acre': 'AC',
+        'Alagoas': 'AL',
+        'Amapá': 'AP',
+        'Amazonas': 'AM',
+        'Bahia': 'BA',
+        'Ceará': 'CE',
+        'Distrito Federal': 'DF',
+        'Espírito Santo': 'ES',
+        'Goiás': 'GO',
+        'Maranhão': 'MA',
+        'Mato Grosso': 'MT',
+        'Mato Grosso do Sul': 'MS',
+        'Minas Gerais': 'MG',
+        'Pará': 'PA',
+        'Paraíba': 'PB',
+        'Paraná': 'PR',
+        'Pernambuco': 'PE',
+        'Piauí': 'PI',
+        'Rio de Janeiro': 'RJ',
+        'Rio Grande do Norte': 'RN',
+        'Rio Grande do Sul': 'RS',
+        'Rondônia': 'RO',
+        'Roraima': 'RR',
+        'Santa Catarina': 'SC',
+        'São Paulo': 'SP',
+        'Sergipe': 'SE',
+        'Tocantins': 'TO'
+    };
+
+    var estados = [];
+
+    var emissoes2012 = [];
+    var emissoes2013 = [];
+    var emissoes2014 = [];
+    var emissoes2015 = [];
+    var emissoes2016 = [];
+    var emissoes2017 = [];
+    var emissoes2018 = [];
+    var emissoes2019 = [];
+    var emissoes2020 = [];
+    var emissoes2021 = [];
+    var emissoes2022 = [];
+
+    pegarDados();
+
+    function pegarDados() {
+        fetch(`/medidas/buscarMedidas`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    return resposta.text();
+                }
+            })
+            .then(function (json) {
+                console.log(json);
+                for (let i = 0; i < json.length; i++) {
+                    let estadoSigla = estadoSiglas[json[i].estado];
+                    estados.push(`BR-${estadoSigla}`);
+                    emissoes2012.push(Number(json[i].media_2012));
+                    emissoes2013.push(Number(json[i].media_2013));
+                    emissoes2014.push(Number(json[i].media_2014));
+                    emissoes2015.push(Number(json[i].media_2015));
+                    emissoes2016.push(Number(json[i].media_2016));
+                    emissoes2017.push(Number(json[i].media_2017));
+                    emissoes2018.push(Number(json[i].media_2018));
+                    emissoes2019.push(Number(json[i].media_2019));
+                    emissoes2020.push(Number(json[i].media_2020));
+                    emissoes2021.push(Number(json[i].media_2021));
+                    emissoes2022.push(Number(json[i].media_2022));
+                }
+                console.log(estados, emissoes2012);
+                drawRegionsMap();
+            });
+    }
+
     function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable([
-            ['State', 'Population'],
-            ['BR-AC', 894470],
-            ['BR-AL', 3351543],
-            ['BR-AM', 4207714],
-            ['BR-AP', 861773],
-            ['BR-BA', 14812617],
-            ['BR-CE', 9187103],
-            ['BR-DF', 3094325],
-            ['BR-ES', 4064052],
-            ['BR-GO', 7113540],
-            ['BR-MA', 7153262],
-            ['BR-MG', 21168791],
-            ['BR-MS', 2778986],
-            ['BR-MT', 3484466],
-            ['BR-PA', 8602865],
-            ['BR-PB', 4018127],
-            ['BR-PE', 9616621],
-            ['BR-PI', 3273227],
-            ['BR-PR', 11433957],
-            ['BR-RJ', 17264943],
-            ['BR-RN', 3506853],
-            ['BR-RS', 11377239],
-            ['BR-RO', 1796460],
-            ['BR-RR', 631181],
-            ['BR-SC', 7252502],
-            ['BR-SE', 2298696],
-            ['BR-SP', 45919049],
-            ['BR-TO', 1572866]
-        ]);
+        var dataArray = [['Estado', 'Emissões']];
+        for (let i = 0; i < estados.length; i++) {
+            dataArray.push([estados[i], emissoes2022[i]]);
+        }
+
+        var data = google.visualization.arrayToDataTable(dataArray);
 
         var options = {
             region: 'BR',
@@ -312,7 +372,9 @@
         });
 
         chart.draw(data, options);
-    };
+
+    }
+
 </script>
 
 <script type="text/javascript">
@@ -330,54 +392,53 @@
 
     function drawBarChart(uf) {
         var emissionsData = {
-            'AC': [100, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220],
-            'AL': [90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200],
-            'AP': [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160],
-            'AM': [120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230],
-            'BA': [300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410],
-            'CE': [250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360],
-            'DF': [200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310],
-            'ES': [180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290],
-            'GO': [210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320],
-            'MA': [170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280],
-            'MG': [400, 410, 420, 430, 440, 450, 460, 470, 480, 490, 500, 510],
-            'MS': [130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240],
-            'MT': [110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220],
-            'PA': [350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460],
-            'PB': [130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240],
-            'PE': [220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330],
-            'PI': [60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170],
-            'PR': [380, 390, 400, 410, 420, 430, 440, 450, 460, 470, 480, 490],
-            'RJ': [500, 510, 520, 530, 540, 550, 560, 570, 580, 590, 600, 610],
-            'RN': [140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250],
-            'RS': [300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410],
-            'RO': [80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190],
-            'RR': [30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140],
-            'SC': [250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360],
-            'SE': [120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230],
-            'SP': [800, 810, 820, 830, 840, 850, 860, 870, 880, 890, 900, 910],
-            'TO': [90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200]
+            'AC': [emissoes2012[0], emissoes2013[0], emissoes2014[0], emissoes2015[0], emissoes2016[0], emissoes2017[0], emissoes2018[0], emissoes2019[0], emissoes2020[0], emissoes2021[0], emissoes2022[0]],
+            'AL': [emissoes2012[1], emissoes2013[1], emissoes2014[1], emissoes2015[1], emissoes2016[1], emissoes2017[1], emissoes2018[1], emissoes2019[1], emissoes2020[1], emissoes2021[1], emissoes2022[1]],
+            'AP': [emissoes2012[2], emissoes2013[2], emissoes2014[2], emissoes2015[2], emissoes2016[2], emissoes2017[2], emissoes2018[2], emissoes2019[2], emissoes2020[2], emissoes2021[2], emissoes2022[2]],
+            'AM': [emissoes2012[3], emissoes2013[3], emissoes2014[3], emissoes2015[3], emissoes2016[3], emissoes2017[3], emissoes2018[3], emissoes2019[3], emissoes2020[3], emissoes2021[3], emissoes2022[3]],
+            'BA': [emissoes2012[4], emissoes2013[4], emissoes2014[4], emissoes2015[4], emissoes2016[4], emissoes2017[4], emissoes2018[4], emissoes2019[4], emissoes2020[4], emissoes2021[4], emissoes2022[4]],
+            'CE': [emissoes2012[5], emissoes2013[5], emissoes2014[5], emissoes2015[5], emissoes2016[5], emissoes2017[5], emissoes2018[5], emissoes2019[5], emissoes2020[5], emissoes2021[5], emissoes2022[5]],
+            'DF': [emissoes2012[6], emissoes2013[6], emissoes2014[6], emissoes2015[6], emissoes2016[6], emissoes2017[6], emissoes2018[6], emissoes2019[6], emissoes2020[6], emissoes2021[6], emissoes2022[6]],
+            'ES': [emissoes2012[7], emissoes2013[7], emissoes2014[7], emissoes2015[7], emissoes2016[7], emissoes2017[7], emissoes2018[7], emissoes2019[7], emissoes2020[7], emissoes2021[7], emissoes2022[7]],
+            'GO': [emissoes2012[8], emissoes2013[8], emissoes2014[8], emissoes2015[8], emissoes2016[8], emissoes2017[8], emissoes2018[8], emissoes2019[8], emissoes2020[8], emissoes2021[8], emissoes2022[8]],
+            'MA': [emissoes2012[9], emissoes2013[9], emissoes2014[9], emissoes2015[9], emissoes2016[9], emissoes2017[9], emissoes2018[9], emissoes2019[9], emissoes2020[9], emissoes2021[9], emissoes2022[9]],
+            'MT': [emissoes2012[10], emissoes2013[10], emissoes2014[10], emissoes2015[10], emissoes2016[10], emissoes2017[10], emissoes2018[10], emissoes2019[10], emissoes2020[10], emissoes2021[10], emissoes2022[10]],
+            'MS': [emissoes2012[11], emissoes2013[11], emissoes2014[11], emissoes2015[11], emissoes2016[11], emissoes2017[11], emissoes2018[11], emissoes2019[11], emissoes2020[11], emissoes2021[11], emissoes2022[11]],
+            'MG': [emissoes2012[12], emissoes2013[12], emissoes2014[12], emissoes2015[12], emissoes2016[12], emissoes2017[12], emissoes2018[12], emissoes2019[12], emissoes2020[12], emissoes2021[12], emissoes2022[12]],
+            'PA': [emissoes2012[13], emissoes2013[13], emissoes2014[13], emissoes2015[13], emissoes2016[13], emissoes2017[13], emissoes2018[13], emissoes2019[13], emissoes2020[13], emissoes2021[13], emissoes2022[13]],
+            'PB': [emissoes2012[14], emissoes2013[14], emissoes2014[14], emissoes2015[14], emissoes2016[14], emissoes2017[14], emissoes2018[14], emissoes2019[14], emissoes2020[14], emissoes2021[14], emissoes2022[14]],
+            'PR': [emissoes2012[15], emissoes2013[15], emissoes2014[15], emissoes2015[15], emissoes2016[15], emissoes2017[15], emissoes2018[15], emissoes2019[15], emissoes2020[15], emissoes2021[15], emissoes2022[15]],
+            'PE': [emissoes2012[16], emissoes2013[16], emissoes2014[16], emissoes2015[16], emissoes2016[16], emissoes2017[16], emissoes2018[16], emissoes2019[16], emissoes2020[16], emissoes2021[16], emissoes2022[16]],
+            'PI': [emissoes2012[17], emissoes2013[17], emissoes2014[17], emissoes2015[17], emissoes2016[17], emissoes2017[17], emissoes2018[17], emissoes2019[17], emissoes2020[17], emissoes2021[17], emissoes2022[17]],
+            'RJ': [emissoes2012[18], emissoes2013[18], emissoes2014[18], emissoes2015[18], emissoes2016[18], emissoes2017[18], emissoes2018[18], emissoes2019[18], emissoes2020[18], emissoes2021[18], emissoes2022[18]],
+            'RN': [emissoes2012[19], emissoes2013[19], emissoes2014[19], emissoes2015[19], emissoes2016[19], emissoes2017[19], emissoes2018[19], emissoes2019[19], emissoes2020[19], emissoes2021[19], emissoes2022[19]],
+            'RS': [emissoes2012[20], emissoes2013[20], emissoes2014[20], emissoes2015[20], emissoes2016[20], emissoes2017[20], emissoes2018[20], emissoes2019[20], emissoes2020[20], emissoes2021[20], emissoes2022[20]],
+            'RO': [emissoes2012[21], emissoes2013[21], emissoes2014[21], emissoes2015[21], emissoes2016[21], emissoes2017[21], emissoes2018[21], emissoes2019[21], emissoes2020[21], emissoes2021[21], emissoes2022[21]],
+            'RR': [emissoes2012[22], emissoes2013[22], emissoes2014[22], emissoes2015[22], emissoes2016[22], emissoes2017[22], emissoes2018[22], emissoes2019[22], emissoes2020[22], emissoes2021[22], emissoes2022[22]],
+            'SC': [emissoes2012[23], emissoes2013[23], emissoes2014[23], emissoes2015[23], emissoes2016[23], emissoes2017[23], emissoes2018[23], emissoes2019[23], emissoes2020[23], emissoes2021[23], emissoes2022[23]],
+            'SP': [emissoes2012[24], emissoes2013[24], emissoes2014[24], emissoes2015[24], emissoes2016[24], emissoes2017[24], emissoes2018[24], emissoes2019[24], emissoes2020[24], emissoes2021[24], emissoes2022[24]],
+            'SE': [emissoes2012[25], emissoes2013[25], emissoes2014[25], emissoes2015[25], emissoes2016[25], emissoes2017[25], emissoes2018[25], emissoes2019[25], emissoes2020[25], emissoes2021[25], emissoes2022[25]],
+            'TO': [emissoes2012[26], emissoes2013[26], emissoes2014[26], emissoes2015[26], emissoes2016[26], emissoes2017[26], emissoes2018[26], emissoes2019[26], emissoes2020[26], emissoes2021[26], emissoes2022[26]]
         };
 
         var data = google.visualization.arrayToDataTable([
-            ['Month', 'Emissions'],
-            ['Jan', emissionsData[uf][0]],
-            ['Feb', emissionsData[uf][1]],
-            ['Mar', emissionsData[uf][2]],
-            ['Apr', emissionsData[uf][3]],
-            ['May', emissionsData[uf][4]],
-            ['Jun', emissionsData[uf][5]],
-            ['Jul', emissionsData[uf][6]],
-            ['Aug', emissionsData[uf][7]],
-            ['Sep', emissionsData[uf][8]],
-            ['Oct', emissionsData[uf][9]],
-            ['Nov', emissionsData[uf][10]],
-            ['Dec', emissionsData[uf][11]]
+            ['Ano', 'Emissões'],
+            ['2012', emissionsData[uf][0]],
+            ['2013', emissionsData[uf][1]],
+            ['2014', emissionsData[uf][2]],
+            ['2015', emissionsData[uf][3]],
+            ['2016', emissionsData[uf][4]],
+            ['2017', emissionsData[uf][5]],
+            ['2018', emissionsData[uf][6]],
+            ['2019', emissionsData[uf][7]],
+            ['2020', emissionsData[uf][8]],
+            ['2022', emissionsData[uf][9]],
+            ['2022', emissionsData[uf][10]]
         ]);
 
         var options = {
-            title: 'Emissões de CO² de ' + uf,
-            hAxis: { title: 'Mês' },
+            title: 'Emissões de CO² - ' + uf,
+            hAxis: { title: 'Ano' },
             vAxis: { title: 'Emissões' },
             chartArea: { width: '70%' },
             legend: { position: 'none' }
