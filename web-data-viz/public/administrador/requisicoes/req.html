@@ -194,6 +194,7 @@
     }
 
     function cadastrarFunc() {
+
         var nomeVar = nomeFunc.value;
         var emailVar = emailFunc.value;
         var cpfVar = cpf.value;
@@ -201,31 +202,55 @@
         var idEmpresa = idEmpresaCriada;
         var cargo = 1;
 
+        if (!this.sending) {
+            this.sending = true;
 
-        fetch("/funcionarios/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                nomeServer: nomeVar,
-                cpfServer: cpfVar,
-                emailServer: emailVar,
-                senhaServer: senhaVar,
-                fkEmpresaServer: idEmpresa,
-                fkCargoServer: cargo,
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
-                aprovarReq(idRequisicaoDado)
+            fetch("/funcionarios/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    nomeServer: nomeVar,
+                    cpfServer: cpfVar,
+                    emailServer: emailVar,
+                    senhaServer: senhaVar,
+                    fkEmpresaServer: idEmpresa,
+                    fkCargoServer: cargo,
+                }),
             })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-                finalizarAguardar();
-            });
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+                    aprovarReq(idRequisicaoDado);
 
-        return false;
+                    fetch("/nodeEmail/send-email", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            variableValue: senhaVar,
+                            userEmail: emailVar
+                        })
+                    })
+                        .then(response => response.text())
+                        .then(result => {
+                            console.log(result);
+                            this.sending = false;
+                        })
+                        .catch(error => {
+                            console.error('Erro ao enviar email:', error);
+                            this.sending = false;
+                        });
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                    finalizarAguardar();
+                    this.sending = false;
+                });
+
+            return false;
+        }
     }
 
     function recusarReq(idRequisicaoDado) {
