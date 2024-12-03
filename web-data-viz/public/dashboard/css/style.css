@@ -139,7 +139,7 @@ a:hover {
 .graphSecond .tituloGraph {
     width: 94%;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
 }
 
 
@@ -298,4 +298,9 @@ a:hover {
 .numero-kpi {
     font-size: 50px;
     color: #CD5C08;
+}
+
+
+.graphSecond{
+    height: 92vh;
 }
