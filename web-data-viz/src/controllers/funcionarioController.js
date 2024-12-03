@@ -73,7 +73,7 @@ function cadastrar(req, res) {
 
 
 function listar(req, res) {
-    var fkEmpresa = req.query.fkEmpresaServer; // Corrigido para req.query
+    var fkEmpresa = req.query.fkEmpresaServer;
     if (!fkEmpresa) {
         return res.status(400).json({ error: "fkEmpresaServer não fornecido" });
     }

@@ -25,7 +25,7 @@ function cadastrar(nome, cpf, email, senha, fkEmpresa, fkCargo) {
 
 function listar(fkEmpresa) {
     var instrucao = `
-        SELECT * FROM funcionario WHERE fkFuncionarioEmpresa = ${fkEmpresa};
+        SELECT * FROM funcionario WHERE fkEmpresa = ${fkEmpresa};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

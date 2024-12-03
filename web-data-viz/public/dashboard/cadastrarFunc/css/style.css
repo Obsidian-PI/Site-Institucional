@@ -183,6 +183,14 @@ h1{
     font-family: "Poppins", sans-serif;
 
 }
+
+.cpf input{
+    border-radius: 15px;
+    width: 414px;
+    height: 6vh;
+    padding-left: 20px;
+}
+
 .email input{
     border-radius: 15px;
     width: 414px;
